@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://devLeonMat.github.io/portafolio-lm",
+  "homepage": "https://devLeonMat.github.io/profile",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist -r git@github.com-personal:devLeonMat/portafolio-lm.git"
+    "deploy": "gh-pages -d dist -r git@github.com-personal:devLeonMat/dev-leon-matias-profile.git -b gh-pages"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
