@@ -1,0 +1,55 @@
+# Workflow name
+name: Deploy React Vite site to Pages
+
+on:
+  # Runs on pushes to the 'main' branch
+  push:
+    branches: [ "main" ] # Change this if your main branch is named 'master'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Grant permissions for the job to write to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Define the deployment job
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # Use a Linux server
+    steps:
+      # 1. Check out your repository's code
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Set up Node.js (needed for Vite/React)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # You can use 18 or 20
+
+      # 3. Install all dependencies (from package-lock.json)
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Build the production site (runs 'npm run build')
+      - name: Build
+        run: npm run build
+
+      # 5. Configure GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # 6. Upload the 'dist' folder as an artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload the content of the 'dist' folder
+          path: './dist'
+
+      # 7. Deploy the artifact to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

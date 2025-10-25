@@ -1,4 +1,4 @@
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, FileDown } from "lucide-react";
 import { Button } from "./ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState, useEffect } from "react";
@@ -89,6 +89,21 @@ const Hero = () => {
               >
                 {t("hero.cta.projects")}
                 <ArrowDown className="ml-2 h-4 w-4" />
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                asChild
+                className="border-primary/50 hover:text-primary hover:bg-primary/10 hover:border-primary hover-scale"
+              >
+                <a 
+                  href="https://drive.google.com/file/d/1-dgsmjTBgCwS9ZX_piaxwiz1XMEMdobO/view?usp=sharing" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  {t("hero.cta.resume")}
+                  <FileDown className="ml-2 h-4 w-4" />
+                </a>
               </Button>
             </div>
 

@@ -27,6 +27,7 @@ const translations = {
     "hero.subtitle": "12+ años construyendo aplicaciones escalables, seguras y de alto rendimiento",
     "hero.cta.contact": "Contáctame",
     "hero.cta.projects": "Ver Proyectos",
+    "hero.cta.resume": "Descargar CV",
     "hero.connect": "Conéctate conmigo",
     "hero.email.copied": "Email copiado al portapapeles",
     
@@ -131,6 +132,7 @@ const translations = {
     "hero.subtitle": "12+ years building scalable, secure, and high-performance applications",
     "hero.cta.contact": "Contact Me",
     "hero.cta.projects": "View Projects",
+    "hero.cta.resume": "Download Resume",
     "hero.connect": "Connect with me",
     "hero.email.copied": "Email copied to clipboard",
     
