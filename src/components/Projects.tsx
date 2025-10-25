@@ -5,6 +5,9 @@ import { Badge } from "./ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback } from "react";
+import outcodingLogo from '@/assets/brands/outcoding.svg';
+import nttLogo from '@/assets/brands/ntt-data.png';
+import dacodes from '@/assets/brands/dacodes.webp';
 
 const Projects = () => {
   const { t } = useLanguage();
@@ -24,9 +27,9 @@ const Projects = () => {
       role: t("companies.agentcloud.role"),
       period: t("companies.agentcloud.period"),
       country: t("companies.agentcloud.country"),
-      flag: "🇵🇪",
+      flag: "🇺🇸",
       tech: ["React", "Scala", "Oracle", "AWS"],
-      logo: "/placeholder.svg", // Replace with actual logo
+      logo: dacodes, // Replace with actual logo
       gradient: "from-primary/20 to-accent/20"
     },
     {
@@ -36,7 +39,7 @@ const Projects = () => {
       country: t("companies.outcoding.country"),
       flag: "🇺🇸",
       tech: ["NestJS", "Angular", "PostgreSQL", "Azure"],
-      logo: "/placeholder.svg", // Replace with actual logo
+      logo: outcodingLogo, // Replace with actual logo
       gradient: "from-secondary/20 to-primary/20"
     },
     {
@@ -46,7 +49,7 @@ const Projects = () => {
       country: t("companies.nttdata.country"),
       flag: "🇵🇪",
       tech: ["Spring Boot", "Kafka", "Kubernetes", "Docker"],
-      logo: "/placeholder.svg", // Replace with actual logo
+      logo: nttLogo, // Replace with actual logo
       gradient: "from-accent/20 to-secondary/20"
     },
     {
@@ -78,12 +81,12 @@ const Projects = () => {
           <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">
             {t("companies.title")} <span className="text-gradient">{t("companies.title.highlight")}</span>
           </h3>
-          
+
           <div className="relative">
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex gap-6">
                 {companies.map((company, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] min-w-0"
                   >
@@ -91,8 +94,8 @@ const Projects = () => {
                       {/* Company Logo */}
                       <div className={`h-32 bg-gradient-to-br ${company.gradient} relative overflow-hidden flex items-center justify-center p-6`}>
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(100,100,100,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(100,100,100,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                        <img 
-                          src={company.logo} 
+                        <img
+                          src={company.logo}
                           alt={company.name}
                           className="relative z-10 max-h-20 max-w-full object-contain"
                         />
@@ -108,10 +111,10 @@ const Projects = () => {
                             <p className="text-xs text-muted-foreground">{company.country}</p>
                           </div>
                         </div>
-                        
+
                         <div className="flex flex-wrap gap-2">
                           {company.tech.map((tech, techIndex) => (
-                            <Badge 
+                            <Badge
                               key={techIndex}
                               variant="outline"
                               className="border-primary/30 text-xs"

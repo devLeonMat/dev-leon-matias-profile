@@ -19,7 +19,7 @@ const translations = {
     "nav.projects": "Proyectos",
     "nav.github": "GitHub",
     "nav.contact": "Contacto",
-    
+
     // Hero
     "hero.greeting": "Hola, soy",
     "hero.title": "Leon Matias",
@@ -30,7 +30,7 @@ const translations = {
     "hero.cta.resume": "Descargar CV",
     "hero.connect": "Conéctate conmigo",
     "hero.email.copied": "Email copiado al portapapeles",
-    
+
     // About
     "about.title": "Sobre",
     "about.title.highlight": "Mí",
@@ -44,7 +44,7 @@ const translations = {
     "about.highlight2.desc": "Optimización constante para experiencias rápidas y fluidas",
     "about.highlight3.title": "Colaboración",
     "about.highlight3.desc": "Trabajo en equipo efectivo con metodologías ágiles",
-    
+
     // Skills
     "skills.title": "Tech",
     "skills.title.highlight": "Stack",
@@ -52,14 +52,14 @@ const translations = {
     "skills.frontend": "Frontend",
     "skills.backend": "Backend",
     "skills.tools": "Herramientas",
-    
+
     // Projects
     "projects.title": "Experiencia",
     "projects.title.highlight": "Profesional",
     "projects.subtitle": "Compañías donde he contribuido",
     "projects.btn.code": "Código",
     "projects.btn.demo": "Demo",
-    
+
     // Companies
     "companies.title": "Compañías donde he",
     "companies.title.highlight": "Trabajado",
@@ -79,7 +79,7 @@ const translations = {
     "companies.sophos.role": "Desarrollador de Software Senior",
     "companies.sophos.period": "Ene 2013 - Mar 2022",
     "companies.sophos.country": "Perú",
-    
+
     // Contact
     "contact.title": "Hablemos del",
     "contact.title.highlight": "Proyecto",
@@ -101,7 +101,7 @@ const translations = {
     "contact.form.message.placeholder": "Cuéntame sobre tu proyecto...",
     "contact.form.submit": "Enviar Mensaje",
     "contact.form.success": "¡Mensaje enviado! Te responderé pronto.",
-    
+
     // GitHub
     "github.title": "Proyectos en",
     "github.title.highlight": "GitHub",
@@ -112,7 +112,7 @@ const translations = {
     "github.repos.title": "Repositorios Destacados",
     "github.repos.no_description": "Sin descripción",
     "github.view_all": "Ver todos en GitHub",
-    
+
     // Footer
     "footer.rights": "© 2025 Leon Matias. Todos los derechos reservados.",
   },
@@ -124,7 +124,7 @@ const translations = {
     "nav.projects": "Projects",
     "nav.github": "GitHub",
     "nav.contact": "Contact",
-    
+
     // Hero
     "hero.greeting": "Hi, I'm",
     "hero.title": "Leon Matias",
@@ -135,7 +135,7 @@ const translations = {
     "hero.cta.resume": "Download Resume",
     "hero.connect": "Connect with me",
     "hero.email.copied": "Email copied to clipboard",
-    
+
     // About
     "about.title": "About",
     "about.title.highlight": "Me",
@@ -149,7 +149,7 @@ const translations = {
     "about.highlight2.desc": "Constant optimization for fast and smooth experiences",
     "about.highlight3.title": "Collaboration",
     "about.highlight3.desc": "Effective teamwork with agile methodologies",
-    
+
     // Skills
     "skills.title": "Tech",
     "skills.title.highlight": "Stack",
@@ -157,21 +157,21 @@ const translations = {
     "skills.frontend": "Frontend",
     "skills.backend": "Backend",
     "skills.tools": "Tools",
-    
+
     // Projects
     "projects.title": "Professional",
     "projects.title.highlight": "Experience",
     "projects.subtitle": "Companies where I've contributed",
     "projects.btn.code": "Code",
     "projects.btn.demo": "Demo",
-    
+
     // Companies
     "companies.title": "Companies I've",
     "companies.title.highlight": "Worked With",
-    "companies.agentcloud.name": "AgentCloud",
+    "companies.agentcloud.name": "HealthCare",
     "companies.agentcloud.role": "Senior Full Stack Developer",
     "companies.agentcloud.period": "Aug 2024 - Present",
-    "companies.agentcloud.country": "Peru",
+    "companies.agentcloud.country": "United States",
     "companies.outcoding.name": "Outcoding",
     "companies.outcoding.role": "Senior Full Stack Developer",
     "companies.outcoding.period": "Nov 2023 - Aug 2024",
@@ -184,7 +184,7 @@ const translations = {
     "companies.sophos.role": "Senior Software Developer",
     "companies.sophos.period": "Jan 2013 - Mar 2022",
     "companies.sophos.country": "Peru",
-    
+
     // Contact
     "contact.title": "Let's Talk About",
     "contact.title.highlight": "Your Project",
@@ -206,7 +206,7 @@ const translations = {
     "contact.form.message.placeholder": "Tell me about your project...",
     "contact.form.submit": "Send Message",
     "contact.form.success": "Message sent! I'll get back to you soon.",
-    
+
     // GitHub
     "github.title": "Projects on",
     "github.title.highlight": "GitHub",
@@ -217,7 +217,7 @@ const translations = {
     "github.repos.title": "Featured Repositories",
     "github.repos.no_description": "No description available",
     "github.view_all": "View all on GitHub",
-    
+
     // Footer
     "footer.rights": "© 2025 Leon Matias. All rights reserved.",
   },

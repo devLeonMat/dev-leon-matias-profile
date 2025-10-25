@@ -1,6 +1,7 @@
 import { Code2, Rocket, Users } from "lucide-react";
 import { Card } from "./ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
+import  myPhoto from '@/assets/photo.jpeg';
 
 const About = () => {
   const { t } = useLanguage();
@@ -50,15 +51,18 @@ const About = () => {
 
           <div className="relative animate-scale-in">
             <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border-glow relative overflow-hidden">
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+              <img
+                src={myPhoto}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {highlights.map((item, index) => (
-            <Card 
-              key={index} 
+            <Card
+              key={index}
               className="p-6 bg-card/50 backdrop-blur-sm border-glow hover:bg-card/70 transition-all hover:-translate-y-1 animate-fade-in hover-scale"
               style={{ animationDelay: `${index * 100}ms` }}
             >

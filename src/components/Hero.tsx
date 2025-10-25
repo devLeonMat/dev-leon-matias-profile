@@ -7,7 +7,7 @@ import heroImage1 from "@/assets/fullstack-hero.jpg";
 import heroImage2 from "@/assets/programmer-three-screens.jpg";
 import heroImage3 from "@/assets/mobile-dev-hero.jpg";
 import heroImage4 from "@/assets/devops-hero.jpg";
-import whatsappIcon from "@/assets/whatsapp-icon.svg";
+import whatsappIcon from "@/assets/brands/whatsapp-icon.svg";
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -45,7 +45,7 @@ const Hero = () => {
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10"></div>
-      
+
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(100,100,100,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(100,100,100,0.05)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
 
@@ -73,16 +73,16 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start items-center">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 onClick={scrollToContact}
                 className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity shadow-lg shadow-primary/30 hover-scale"
               >
                 {t("hero.cta.contact")}
                 <Mail className="ml-2 h-4 w-4" />
               </Button>
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 variant="outline"
                 onClick={scrollToProjects}
                 className="border-primary/50 hover:text-primary hover:bg-primary/10 hover:border-primary hover-scale"
@@ -90,15 +90,15 @@ const Hero = () => {
                 {t("hero.cta.projects")}
                 <ArrowDown className="ml-2 h-4 w-4" />
               </Button>
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 variant="outline"
                 asChild
                 className="border-primary/50 hover:text-primary hover:bg-primary/10 hover:border-primary hover-scale"
               >
-                <a 
-                  href="https://drive.google.com/file/d/1-dgsmjTBgCwS9ZX_piaxwiz1XMEMdobO/view?usp=sharing" 
-                  target="_blank" 
+                <a
+                  href="https://drive.google.com/file/d/1-dgsmjTBgCwS9ZX_piaxwiz1XMEMdobO/view?usp=sharing"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   {t("hero.cta.resume")}
@@ -111,8 +111,8 @@ const Hero = () => {
             <div className="space-y-3 pt-8">
               <p className="text-sm text-muted-foreground font-medium">{t("hero.connect")}</p>
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="hover:text-white hover:bg-[#181717] hover:border-[#181717] transition-all hover-scale"
                   asChild
                 >
@@ -122,7 +122,7 @@ const Hero = () => {
                   </a>
                 </Button>
 
-                <Button 
+                <Button
                   variant="outline"
                   className="hover:text-white hover:bg-[#0A66C2] hover:border-[#0A66C2] transition-all hover-scale"
                   asChild
@@ -133,7 +133,7 @@ const Hero = () => {
                   </a>
                 </Button>
 
-                <Button 
+                <Button
                   variant="outline"
                   className="hover:text-primary hover:bg-primary/10 hover:border-primary transition-all hover-scale"
                   onClick={handleCopyEmail}
@@ -142,7 +142,7 @@ const Hero = () => {
                   Email
                 </Button>
 
-                <Button 
+                <Button
                   variant="outline"
                   className="hover:text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] transition-all hover-scale"
                   asChild
@@ -160,9 +160,9 @@ const Hero = () => {
           <div className="relative animate-fade-in lg:block hidden" style={{ animationDelay: '200ms' }}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 hover-scale">
               {heroImages.map((image, index) => (
-                <img 
+                <img
                   key={index}
-                  src={image} 
+                  src={image}
                   alt={`Developer Workspace ${index + 1}`}
                   className={`w-full h-auto object-cover transition-opacity duration-1000 ${
                     index === currentImageIndex ? 'opacity-100' : 'opacity-0 absolute inset-0'
@@ -179,8 +179,8 @@ const Hero = () => {
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === currentImageIndex 
-                      ? 'bg-primary w-8' 
+                    index === currentImageIndex
+                      ? 'bg-primary w-8'
                       : 'bg-primary/30 hover:bg-primary/50'
                   }`}
                   aria-label={`Go to slide ${index + 1}`}

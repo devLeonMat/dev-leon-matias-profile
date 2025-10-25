@@ -6,11 +6,11 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import { useLanguage } from "@/contexts/LanguageContext";
-import whatsappIcon from "@/assets/whatsapp-icon.svg";
+import whatsappIcon from "@/assets/brands/whatsapp-icon.svg";
 
 const WhatsAppButton = () => {
   const { t } = useLanguage();
-  
+
   const handleClick = () => {
     window.open("https://wa.me/51933166559?text=Hola%20Leon,%20me%20gustaría%20contactarte", "_blank");
   };

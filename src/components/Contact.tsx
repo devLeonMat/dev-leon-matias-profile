@@ -10,7 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import whatsappIcon from "@/assets/whatsapp-icon.svg";
+import whatsappIcon from "@/assets/brands/whatsapp-icon.svg";
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -105,7 +105,7 @@ const Contact = () => {
                 );
 
                 return (
-                  <Card 
+                  <Card
                     key={index}
                     className="p-6 bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/40 transition-all hover-scale relative"
                     onMouseEnter={() => setHoveredIndex(index)}
