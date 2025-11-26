@@ -2,12 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// CAMBIO 1: Importa HashRouter y Navigate
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Tools from "./pages/Tools";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +22,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Navigate to="/home" replace />} />
               <Route path="/home" element={<Index />} />
+              <Route path="/tools" element={<Tools />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </HashRouter>
