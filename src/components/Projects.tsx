@@ -1,4 +1,4 @@
-import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
@@ -26,41 +26,31 @@ const Projects = () => {
       name: t("companies.agentcloud.name"),
       role: t("companies.agentcloud.role"),
       period: t("companies.agentcloud.period"),
-      country: t("companies.agentcloud.country"),
-      flag: "🇺🇸",
-      tech: ["React", "Scala", "Oracle", "AWS"],
-      logo: dacodes, // Replace with actual logo
-      gradient: "from-primary/20 to-accent/20"
+      country: "🇺🇸", // Flag directly here or via translation if needed
+      tech: ["React", "Scala", "AWS", "Terraform"],
+      logo: dacodes,
+      gradient: "from-primary/20 to-accent/20",
+      description: t("companies.agentcloud.task1") // Using the first task as a summary
     },
     {
       name: t("companies.outcoding.name"),
       role: t("companies.outcoding.role"),
       period: t("companies.outcoding.period"),
-      country: t("companies.outcoding.country"),
-      flag: "🇺🇸",
-      tech: ["NestJS", "Angular", "PostgreSQL", "Azure"],
-      logo: outcodingLogo, // Replace with actual logo
-      gradient: "from-secondary/20 to-primary/20"
+      country: "🇺🇸",
+      tech: ["NestJS", "Angular", "Azure", "Nx"],
+      logo: outcodingLogo,
+      gradient: "from-secondary/20 to-primary/20",
+      description: t("companies.outcoding.task1")
     },
     {
       name: t("companies.nttdata.name"),
       role: t("companies.nttdata.role"),
       period: t("companies.nttdata.period"),
-      country: t("companies.nttdata.country"),
-      flag: "🇵🇪",
+      country: "🇵🇪",
       tech: ["Spring Boot", "Kafka", "Kubernetes", "Docker"],
-      logo: nttLogo, // Replace with actual logo
-      gradient: "from-accent/20 to-secondary/20"
-    },
-    {
-      name: t("companies.sophos.name"),
-      role: t("companies.sophos.role"),
-      period: t("companies.sophos.period"),
-      country: t("companies.sophos.country"),
-      flag: "🇵🇪",
-      tech: ["Java", "JavaScript", "PostgreSQL", "Jenkins"],
-      logo: "/placeholder.svg", // Replace with actual logo
-      gradient: "from-primary/20 to-secondary/20"
+      logo: nttLogo,
+      gradient: "from-accent/20 to-secondary/20",
+      description: t("companies.nttdata.task1")
     }
   ];
 
@@ -78,10 +68,6 @@ const Projects = () => {
 
         {/* Companies Carousel */}
         <div className="mb-16">
-          <h3 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-            {t("companies.title")} <span className="text-gradient">{t("companies.title.highlight")}</span>
-          </h3>
-
           <div className="relative">
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex gap-6">
@@ -90,9 +76,9 @@ const Projects = () => {
                     key={index}
                     className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.33%] min-w-0"
                   >
-                    <Card className="h-full bg-card/50 backdrop-blur-sm border-glow hover:bg-card/70 transition-all hover-scale">
+                    <Card className="h-full bg-card/50 backdrop-blur-sm border-glow hover:bg-card/70 transition-all hover-scale flex flex-col">
                       {/* Company Logo */}
-                      <div className={`h-32 bg-gradient-to-br ${company.gradient} relative overflow-hidden flex items-center justify-center p-6`}>
+                      <div className={`h-32 bg-gradient-to-br ${company.gradient} relative overflow-hidden flex items-center justify-center p-6 rounded-t-lg`}>
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(100,100,100,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(100,100,100,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
                         <img
                           src={company.logo}
@@ -101,18 +87,21 @@ const Projects = () => {
                         />
                       </div>
 
-                      <div className="p-6 space-y-4">
+                      <div className="p-6 space-y-4 flex-1 flex flex-col">
                         <div>
-                          <h4 className="text-xl font-semibold mb-1">{company.name}</h4>
+                          <div className="flex justify-between items-start mb-2">
+                            <h4 className="text-xl font-semibold">{company.name}</h4>
+                            <span className="text-lg">{company.country}</span>
+                          </div>
                           <p className="text-sm text-primary font-medium">{company.role}</p>
                           <p className="text-xs text-muted-foreground mt-1">{company.period}</p>
-                          <div className="flex items-center gap-2 mt-2">
-                            <span className="text-lg">{company.flag}</span>
-                            <p className="text-xs text-muted-foreground">{company.country}</p>
-                          </div>
                         </div>
 
-                        <div className="flex flex-wrap gap-2">
+                        <p className="text-sm text-muted-foreground line-clamp-3 flex-1">
+                          {company.description}
+                        </p>
+
+                        <div className="flex flex-wrap gap-2 mt-auto pt-4">
                           {company.tech.map((tech, techIndex) => (
                             <Badge
                               key={techIndex}
@@ -134,7 +123,7 @@ const Projects = () => {
             <Button
               variant="outline"
               size="icon"
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 border-primary/50 hover-scale"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 border-primary/50 hover-scale bg-background/80 backdrop-blur-sm z-10 hidden md:flex"
               onClick={scrollPrev}
             >
               <ChevronLeft className="h-4 w-4" />
@@ -142,11 +131,31 @@ const Projects = () => {
             <Button
               variant="outline"
               size="icon"
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 border-primary/50 hover-scale"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 border-primary/50 hover-scale bg-background/80 backdrop-blur-sm z-10 hidden md:flex"
               onClick={scrollNext}
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
+
+            {/* Mobile Navigation Buttons (below carousel) */}
+            <div className="flex justify-center gap-4 mt-6 md:hidden">
+               <Button
+                variant="outline"
+                size="icon"
+                className="border-primary/50"
+                onClick={scrollPrev}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="border-primary/50"
+                onClick={scrollNext}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
