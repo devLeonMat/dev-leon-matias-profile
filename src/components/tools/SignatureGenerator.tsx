@@ -42,6 +42,7 @@ import BrowserMockup from "../ui/BrowserMockup";
 import {countries} from "@/data/countries";
 import {ToggleGroup, ToggleGroupItem} from "@/components/ui/toggle-group";
 import {cn} from "@/lib/utils";
+import { ColorPicker } from "@/components/ui/color-picker";
 
 type FieldName =
   'name'
@@ -493,47 +494,6 @@ const SignatureGenerator = () => {
           <Button variant="ghost" size="icon" className="h-6 w-6 hover:bg-black hover:text-white"
                   onClick={() => moveField(index, 'down')} disabled={index === fieldOrder.length - 1}><ArrowDown
             className="h-4 w-4"/></Button>
-        </div>
-      </div>
-    );
-  };
-
-  const ColorPicker = ({label, value, onChange}: {
-    label: string,
-    value: string,
-    onChange: (value: string) => void
-  }) => {
-    // Use local state to prevent re-rendering issues while dragging
-    const [localValue, setLocalValue] = useState(value);
-
-    useEffect(() => {
-      setLocalValue(value);
-    }, [value]);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = e.target.value;
-      setLocalValue(newValue);
-      onChange(newValue);
-    };
-
-    return (
-      <div className="space-y-2">
-        <Label>{label}</Label>
-        <div className="flex gap-2 items-center">
-            <div className="relative w-10 h-10 rounded-md border overflow-hidden shrink-0 shadow-sm">
-                <input
-                    type="color"
-                    value={localValue}
-                    onChange={handleChange}
-                    className="absolute -top-2 -left-2 w-16 h-16 p-0 border-0 cursor-pointer"
-                />
-            </div>
-            <Input
-                value={localValue}
-                onChange={handleChange}
-                className="font-mono uppercase"
-                maxLength={7}
-            />
         </div>
       </div>
     );

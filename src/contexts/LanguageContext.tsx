@@ -25,6 +25,7 @@ const translations = {
 
     // Tools
     "tools.signature-generator.title": "Generador de Firmas",
+    "tools.qr-generator.title": "Generador de QR",
     "tools.signature-generator.tabs.data": "Datos",
     "tools.signature-generator.tabs.style": "Estilos",
     "tools.signature-generator.tabs.templates": "Plantillas",
@@ -183,6 +184,7 @@ const translations = {
 
     // Tools
     "tools.signature-generator.title": "Signature Generator",
+    "tools.qr-generator.title": "QR Generator",
     "tools.signature-generator.tabs.data": "Data",
     "tools.signature-generator.tabs.style": "Styles",
     "tools.signature-generator.tabs.templates": "Templates",
