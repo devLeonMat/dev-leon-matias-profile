@@ -1,29 +1,31 @@
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import SignatureGenerator from "../components/tools/SignatureGenerator";
+import { tools } from "../components/tools/toolConfig";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { PanelLeftClose, PanelLeftOpen, PenSquare } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const Tools = () => {
   const { t } = useLanguage();
   const [activeTool, setActiveTool] = useState("signature-generator");
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const tools = [
-    {
-      id: "signature-generator",
-      title: t("tools.signature-generator.title"),
-      icon: <PenSquare className="h-5 w-5" />,
-      component: <SignatureGenerator />,
-    },
-  ];
-
   const renderContent = () => {
     const activeToolData = tools.find((tool) => tool.id === activeTool);
-    return activeToolData ? activeToolData.component : null;
+    if (!activeToolData) return null;
+
+    const ToolComponent = activeToolData.component;
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <ToolComponent />
+      </Suspense>
+    );
   };
 
   return (
@@ -71,7 +73,7 @@ const Tools = () => {
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent side="right">
-                      <p>{tool.title}</p>
+                      <p>{t(tool.title)}</p>
                     </TooltipContent>
                   </Tooltip>
                 ) : (
@@ -86,7 +88,7 @@ const Tools = () => {
                     }`}
                   >
                     {tool.icon}
-                    <span className="ml-2">{tool.title}</span>
+                    <span className="ml-2">{t(tool.title)}</span>
                   </Button>
                 )
               )}

@@ -1,4 +1,4 @@
-import {useState, useRef} from "react";
+import {useState, useRef, useEffect} from "react";
 import {useLanguage} from "@/contexts/LanguageContext";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
@@ -20,7 +20,6 @@ import {
   Brush,
   X,
   Copy,
-  Code,
   Image as ImageIcon,
   MapPin,
   Bold,
@@ -66,7 +65,7 @@ const SignatureGenerator = () => {
     phone: "123456789",
     countryName: "United States",
     email: "your.email@example.com",
-    website: "yourwebsite.com",
+    website: "yourwebsite.com/very/long/url/that/needs/truncating",
     linkedin: "https://www.linkedin.com/in/leon-matias/",
     github: "https://github.com/leon-matias",
     image: "https://avatars.githubusercontent.com/u/10000",
@@ -78,6 +77,7 @@ const SignatureGenerator = () => {
     fontSize: 12,
     imageRadius: 50,
     iconSize: 24,
+    socialIconSpacing: 10,
     textStyles: {
       name: {isBold: true, isItalic: false, isUnderline: false},
       role: {isBold: false, isItalic: false, isUnderline: false},
@@ -106,13 +106,50 @@ const SignatureGenerator = () => {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
       const reader = new FileReader();
+
       reader.onload = (event) => {
         if (event.target?.result) {
-          setFormData((prev) => ({...prev, image: event.target.result as string}));
+          // Create an image object to load the file
+          const img = new Image();
+          img.onload = () => {
+            // Create a canvas to resize
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 150; // Max width sufficient for signature
+            const MAX_HEIGHT = 150;
+            let width = img.width;
+            let height = img.height;
+
+            // Calculate new dimensions
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            // Draw and compress
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                ctx.drawImage(img, 0, 0, width, height);
+                // Convert to JPEG with 0.7 quality to reduce size significantly
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                setFormData((prev) => ({...prev, image: dataUrl}));
+            }
+          };
+          img.src = event.target.result as string;
         }
       };
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
     }
   };
 
@@ -120,22 +157,37 @@ const SignatureGenerator = () => {
     setFormData((prev) => ({...prev, [name]: ""}));
   };
 
-  const copyHtmlToClipboard = () => {
-    if (signatureRef.current) {
-      const html = signatureRef.current.innerHTML;
-      navigator.clipboard.writeText(html).then(() => {
-        toast.success(t("tools.signature-generator.copied.html"));
-      });
-    }
-  };
-
   const copySignatureToClipboard = () => {
-    if (signatureRef.current) {
-      const text = signatureRef.current.innerText;
-      navigator.clipboard.writeText(text).then(() => {
+    if (!signatureRef.current) return;
+
+    const html = signatureRef.current.innerHTML;
+    const text = signatureRef.current.innerText;
+
+    const copy = async () => {
+      try {
+        const htmlBlob = new Blob([html], { type: 'text/html' });
+        const textBlob = new Blob([text], { type: 'text/plain' });
+
+        const clipboardItem = new ClipboardItem({
+          'text/html': htmlBlob,
+          'text/plain': textBlob,
+        });
+
+        await navigator.clipboard.write([clipboardItem]);
         toast.success(t("tools.signature-generator.copied.signature"));
-      });
-    }
+      } catch (error) {
+        console.error('Failed to copy HTML to clipboard, falling back to text.', error);
+        try {
+            await navigator.clipboard.writeText(text);
+            toast.success(t("tools.signature-generator.copied.signature") + " (text only)");
+        } catch (fallbackError) {
+            console.error('Failed to copy text to clipboard.', fallbackError);
+            toast.error('Failed to copy signature.');
+        }
+      }
+    };
+
+    copy();
   };
 
   const selectedCountry = countries.find(c => c.name === formData.countryName);
@@ -159,6 +211,11 @@ const SignatureGenerator = () => {
     setFieldOrder(newOrder);
   };
 
+  const getIconUrl = (iconName: string, color: string) => {
+    const hex = color.replace('#', '');
+    return `https://img.icons8.com/ios-filled/50/${hex}/${iconName}.png`;
+  };
+
   const renderOrderedFields = () => {
     const socialFields = ['linkedin', 'github', 'whatsapp'];
     const renderedSocial = new Set();
@@ -170,23 +227,41 @@ const SignatureGenerator = () => {
         renderedSocial.add('linkedin');
         renderedSocial.add('github');
         renderedSocial.add('whatsapp');
+
+        const socialIcons = [
+            fieldOrder.includes('linkedin') && formData.linkedin ? (
+                <a key="linkedin" href={formData.linkedin} style={{ textDecoration: 'none', display: 'inline-block' }}>
+                    <img src="https://img.icons8.com/ios-filled/50/0077B5/linkedin.png" alt="LinkedIn" width={styles.iconSize} height={styles.iconSize} style={{ display: 'block', width: `${styles.iconSize}px`, height: `${styles.iconSize}px` }} />
+                </a>
+            ) : null,
+            fieldOrder.includes('github') && formData.github ? (
+                <a key="github" href={formData.github} style={{ textDecoration: 'none', display: 'inline-block' }}>
+                    <img src="https://img.icons8.com/ios-filled/50/000000/github.png" alt="GitHub" width={styles.iconSize} height={styles.iconSize} style={{ display: 'block', width: `${styles.iconSize}px`, height: `${styles.iconSize}px` }} />
+                </a>
+            ) : null,
+            fieldOrder.includes('whatsapp') && formData.phone ? (
+                <a key="whatsapp" href={`https://wa.me/${formData.phone}`} style={{ textDecoration: 'none', display: 'inline-block' }}>
+                    <img src="https://img.icons8.com/ios-filled/50/25D366/whatsapp.png" alt="WhatsApp" width={styles.iconSize} height={styles.iconSize} style={{ display: 'block', width: `${styles.iconSize}px`, height: `${styles.iconSize}px` }} />
+                </a>
+            ) : null,
+        ].filter(Boolean);
+
         return (
-          <div key="social-icons" style={{display: 'flex', alignItems: 'center', gap: '10px', marginTop: '5px'}}>
-            {fieldOrder.includes('linkedin') && formData.linkedin && (
-              <a href={formData.linkedin} style={{textDecoration: 'none'}}><Linkedin size={styles.iconSize}
-                                                                                     color="#0077B5"/></a>
-            )}
-            {fieldOrder.includes('github') && formData.github && (
-              <a href={formData.github} style={{textDecoration: 'none'}}><Github size={styles.iconSize}
-                                                                                 color="#000000"/></a>
-            )}
-            {fieldOrder.includes('whatsapp') && formData.phone && (
-              <a href={`https://wa.me/${formData.phone}`} style={{textDecoration: 'none'}}><MessageCircle
-                size={styles.iconSize} color="#25D366"/></a>
-            )}
-          </div>
+          <table key="social-icons" cellPadding="0" cellSpacing="0" style={{ borderCollapse: 'collapse', marginTop: '5px' }}>
+            <tbody>
+              <tr>
+                {socialIcons.map((icon, index) => (
+                    <td key={index} style={{ paddingRight: index === socialIcons.length - 1 ? '0' : `${styles.socialIconSpacing}px` }}>
+                        {icon}
+                    </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
         );
       }
+
+      const contactIconSize = 14;
 
       switch (fieldName) {
         case 'name':
@@ -201,21 +276,68 @@ const SignatureGenerator = () => {
         case 'company':
           return null;
         case 'countryName':
-          return <p key={fieldName} style={{margin: '2px 0', ...getTextStyle('countryName')}}><MapPin size={12} style={{
-            display: 'inline-block',
-            marginRight: '5px'
-          }}/>{formData.countryName}</p>;
+          return (
+            <p key={fieldName} style={{margin: '2px 0', display: 'flex', alignItems: 'center', gap: '5px', ...getTextStyle('countryName')}}>
+              <img
+                src={getIconUrl('marker', styles.primaryColor)}
+                alt="Location"
+                width={contactIconSize}
+                height={contactIconSize}
+                style={{display: 'inline-block', verticalAlign: 'middle'}}
+              />
+              <span>{formData.countryName}</span>
+            </p>
+          );
         case 'phone':
-          return <p key={fieldName} style={{margin: '2px 0'}}><span
-            style={getTextStyle('phone')}>P: {fullPhoneNumber}</span></p>;
+          return (
+            <p key={fieldName} style={{margin: '2px 0', display: 'flex', alignItems: 'center', gap: '5px'}}>
+              <img
+                src={getIconUrl('phone', styles.primaryColor)}
+                alt="Phone"
+                width={contactIconSize}
+                height={contactIconSize}
+                style={{display: 'inline-block', verticalAlign: 'middle'}}
+              />
+              <span style={getTextStyle('phone')}>{fullPhoneNumber}</span>
+            </p>
+          );
         case 'email':
-          return <p key={fieldName} style={{margin: '2px 0'}}><span style={getTextStyle('email')}>E: <a
-            href={`mailto:${formData.email}`}
-            style={{color: styles.primaryColor, textDecoration: 'none'}}>{formData.email}</a></span></p>;
+          return (
+            <p key={fieldName} style={{margin: '2px 0', display: 'flex', alignItems: 'center', gap: '5px'}}>
+              <img
+                src={getIconUrl('mail', styles.primaryColor)}
+                alt="Email"
+                width={contactIconSize}
+                height={contactIconSize}
+                style={{display: 'inline-block', verticalAlign: 'middle'}}
+              />
+              <span style={getTextStyle('email')}>
+                <a href={`mailto:${formData.email}`} style={{color: styles.primaryColor, textDecoration: 'none'}}>{formData.email}</a>
+              </span>
+            </p>
+          );
         case 'website':
-          return <p key={fieldName} style={{margin: '2px 0', ...getTextStyle('website')}}><a
-            href={`http://${formData.website}`}
-            style={{color: styles.primaryColor, textDecoration: 'none'}}>{formData.website}</a></p>;
+          const displayWebsite = formData.website.length > 30
+            ? formData.website.substring(0, 30) + '...'
+            : formData.website;
+
+          // Ensure the URL has a protocol for the href
+          const websiteUrl = formData.website.startsWith('http')
+            ? formData.website
+            : `http://${formData.website}`;
+
+          return (
+            <p key={fieldName} style={{margin: '2px 0', display: 'flex', alignItems: 'center', gap: '5px', ...getTextStyle('website')}}>
+              <img
+                src={getIconUrl('globe', styles.primaryColor)}
+                alt="Website"
+                width={contactIconSize}
+                height={contactIconSize}
+                style={{display: 'inline-block', verticalAlign: 'middle'}}
+              />
+              <a href={websiteUrl} style={{color: styles.primaryColor, textDecoration: 'none'}}>{displayWebsite}</a>
+            </p>
+          );
         default:
           return null;
       }
@@ -381,18 +503,38 @@ const SignatureGenerator = () => {
     value: string,
     onChange: (value: string) => void
   }) => {
-    const colorInputRef = useRef<HTMLInputElement>(null);
+    // Use local state to prevent re-rendering issues while dragging
+    const [localValue, setLocalValue] = useState(value);
+
+    useEffect(() => {
+      setLocalValue(value);
+    }, [value]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      setLocalValue(newValue);
+      onChange(newValue);
+    };
+
     return (
       <div className="space-y-2">
         <Label>{label}</Label>
-        <Button variant="outline"
-                className="w-full justify-start text-left font-normal hover:bg-muted hover:text-foreground"
-                onClick={() => colorInputRef.current?.click()}>
-          <div className="w-5 h-5 rounded-full mr-2 border" style={{backgroundColor: value}}/>
-          {value}
-          <Input ref={colorInputRef} type="color" value={value} onChange={(e) => onChange(e.target.value)}
-                 className="absolute opacity-0 w-0 h-0"/>
-        </Button>
+        <div className="flex gap-2 items-center">
+            <div className="relative w-10 h-10 rounded-md border overflow-hidden shrink-0 shadow-sm">
+                <input
+                    type="color"
+                    value={localValue}
+                    onChange={handleChange}
+                    className="absolute -top-2 -left-2 w-16 h-16 p-0 border-0 cursor-pointer"
+                />
+            </div>
+            <Input
+                value={localValue}
+                onChange={handleChange}
+                className="font-mono uppercase"
+                maxLength={7}
+            />
+        </div>
       </div>
     );
   };
@@ -475,6 +617,10 @@ const SignatureGenerator = () => {
                   <Label>{t("tools.signature-generator.style.icon-size")} ({styles.iconSize}px)</Label><Slider
                   defaultValue={[styles.iconSize]} max={48} step={1}
                   onValueChange={(value) => setStyles(prev => ({...prev, iconSize: value[0]}))}/></div>
+                <div className="space-y-2">
+                  <Label>Social Icon Spacing ({styles.socialIconSpacing}px)</Label><Slider
+                  defaultValue={[styles.socialIconSpacing]} max={50} step={1}
+                  onValueChange={(value) => setStyles(prev => ({...prev, socialIconSpacing: value[0]}))}/></div>
               </div>
             </TabsContent>
             <TabsContent value="templates" className="mt-4">
@@ -522,12 +668,10 @@ const SignatureGenerator = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between"><CardTitle
             className="text-black">{t("tools.signature-generator.preview")}</CardTitle>
-            <div className="flex gap-2"><Button variant="outline" size="sm"
-                                                className="bg-white text-black hover:bg-black hover:text-white"
-                                                onClick={copyHtmlToClipboard}><Code
-              className="w-4 h-4 mr-2"/>{t("tools.signature-generator.copy.html")}</Button><Button size="sm"
-                                                                                                   className="bg-black text-white hover:bg-black hover:opacity-90"
-                                                                                                   onClick={copySignatureToClipboard}><Copy
+            <div className="flex gap-2">
+              <Button size="sm"
+                      className="bg-black text-white hover:bg-black hover:opacity-90"
+                      onClick={copySignatureToClipboard}><Copy
               className="w-4 h-4 mr-2"/>{t("tools.signature-generator.copy.signature")}</Button></div>
           </CardHeader>
           <CardContent>
