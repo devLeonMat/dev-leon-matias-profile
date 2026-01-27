@@ -12,6 +12,9 @@ import {
 } from "./ui/tooltip";
 import whatsappIcon from "@/assets/brands/whatsapp-icon.svg";
 
+const { VITE_EMAIL, VITE_WHATSAPP_NUMBER } = import.meta.env;
+const whatsappUrl = `https://wa.me/${VITE_WHATSAPP_NUMBER}?text=Hola%20Leon,%20me%20gustaría%20contactarte`;
+
 const Contact = () => {
   const { t } = useLanguage();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -25,15 +28,15 @@ const Contact = () => {
     {
       icon: Mail,
       label: t("contact.info.email"),
-      value: "leonmatias1991@gmail.com",
-      link: "mailto:leonmatias1991@gmail.com",
+      value: VITE_EMAIL,
+      link: `mailto:${VITE_EMAIL}`,
       isWhatsApp: false
     },
     {
       icon: "whatsapp",
       label: t("contact.info.phone"),
-      value: "+51 933 166 559",
-      link: "https://wa.me/51933166559?text=Hola%20Leon,%20me%20gustaría%20contactarte",
+      value: `+${VITE_WHATSAPP_NUMBER}`,
+      link: whatsappUrl,
       isWhatsApp: true
     },
     {

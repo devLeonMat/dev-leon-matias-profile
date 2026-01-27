@@ -9,6 +9,17 @@ import heroImage3 from "@/assets/mobile-dev-hero.jpg";
 import heroImage4 from "@/assets/devops-hero.jpg";
 import whatsappIcon from "@/assets/brands/whatsapp-icon.svg";
 
+// Destructure environment variables
+const {
+  VITE_WHATSAPP_NUMBER,
+  VITE_EMAIL,
+  VITE_LINKEDIN_URL,
+  VITE_GITHUB_URL,
+  VITE_RESUME_URL,
+} = import.meta.env;
+
+const whatsappUrl = `https://wa.me/${VITE_WHATSAPP_NUMBER}?text=Hola%20Leon,%20me%20gustaría%20contactarte`;
+
 const Hero = () => {
   const { t } = useLanguage();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -37,7 +48,7 @@ const Hero = () => {
   };
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText("leonmatias1991@gmail.com");
+    navigator.clipboard.writeText(VITE_EMAIL);
     toast.success(t("hero.email.copied"));
   };
 
@@ -97,7 +108,7 @@ const Hero = () => {
                 className="border-primary/50 hover:text-primary hover:bg-primary/10 hover:border-primary hover-scale"
               >
                 <a
-                  href="https://drive.google.com/file/d/1-dgsmjTBgCwS9ZX_piaxwiz1XMEMdobO/view?usp=sharing"
+                  href={VITE_RESUME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -116,7 +127,7 @@ const Hero = () => {
                   className="hover:text-white hover:bg-[#181717] hover:border-[#181717] transition-all hover-scale"
                   asChild
                 >
-                  <a href="https://github.com/devLeonMat" target="_blank" rel="noopener noreferrer">
+                  <a href={VITE_GITHUB_URL} target="_blank" rel="noopener noreferrer">
                     <Github className="h-4 w-4 mr-2" />
                     GitHub
                   </a>
@@ -127,7 +138,7 @@ const Hero = () => {
                   className="hover:text-white hover:bg-[#0A66C2] hover:border-[#0A66C2] transition-all hover-scale"
                   asChild
                 >
-                  <a href="https://www.linkedin.com/in/fs-leon-matias/" target="_blank" rel="noopener noreferrer">
+                  <a href={VITE_LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
                     <Linkedin className="h-4 w-4 mr-2" />
                     LinkedIn
                   </a>
@@ -147,7 +158,7 @@ const Hero = () => {
                   className="hover:text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] transition-all hover-scale"
                   asChild
                 >
-                  <a href="https://wa.me/51933166559?text=Hola%20Leon,%20me%20gustaría%20contactarte" target="_blank" rel="noopener noreferrer">
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                     <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4 mr-2" />
                     WhatsApp
                   </a>

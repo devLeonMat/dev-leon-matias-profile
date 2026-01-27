@@ -2,6 +2,8 @@ import { Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "./ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+const { VITE_EMAIL, VITE_LINKEDIN_URL, VITE_GITHUB_URL } = import.meta.env;
+
 const Footer = () => {
   const { t } = useLanguage();
 
@@ -12,35 +14,35 @@ const Footer = () => {
           <p className="text-muted-foreground text-sm">
             {t("footer.rights")}
           </p>
-          
+
           <div className="flex gap-2">
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="hover:text-white hover:bg-[#181717] transition-all duration-300 hover-scale border border-transparent hover:border-[#181717]"
               asChild
             >
-              <a href="https://github.com/devLeonMat" target="_blank" rel="noopener noreferrer">
+              <a href={VITE_GITHUB_URL} target="_blank" rel="noopener noreferrer">
                 <Github className="h-4 w-4" />
               </a>
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="hover:text-white hover:bg-[#0A66C2] transition-all duration-300 hover-scale border border-transparent hover:border-[#0A66C2]"
               asChild
             >
-              <a href="https://www.linkedin.com/in/fs-leon-matias/" target="_blank" rel="noopener noreferrer">
+              <a href={VITE_LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
                 <Linkedin className="h-4 w-4" />
               </a>
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="hover:text-white hover:bg-gradient-to-r hover:from-primary hover:to-accent transition-all duration-300 hover-scale border border-transparent hover:border-primary"
               asChild
             >
-              <a href="mailto:leonmatias1991@gmail.com">
+              <a href={`mailto:${VITE_EMAIL}`}>
                 <Mail className="h-4 w-4" />
               </a>
             </Button>
