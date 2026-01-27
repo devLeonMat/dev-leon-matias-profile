@@ -20,6 +20,7 @@ import {
   Brush,
   X,
   Copy,
+  Code,
   Image as ImageIcon,
   MapPin,
   Bold,
@@ -141,10 +142,10 @@ const SignatureGenerator = () => {
             // Draw and compress
             const ctx = canvas.getContext('2d');
             if (ctx) {
-                ctx.drawImage(img, 0, 0, width, height);
-                // Convert to JPEG with 0.7 quality to reduce size significantly
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
-                setFormData((prev) => ({...prev, image: dataUrl}));
+              ctx.drawImage(img, 0, 0, width, height);
+              // Convert to JPEG with 0.7 quality to reduce size significantly
+              const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+              setFormData((prev) => ({...prev, image: dataUrl}));
             }
           };
           img.src = event.target.result as string;
@@ -179,11 +180,11 @@ const SignatureGenerator = () => {
       } catch (error) {
         console.error('Failed to copy HTML to clipboard, falling back to text.', error);
         try {
-            await navigator.clipboard.writeText(text);
-            toast.success(t("tools.signature-generator.copied.signature") + " (text only)");
+          await navigator.clipboard.writeText(text);
+          toast.success(t("tools.signature-generator.copied.signature") + " (text only)");
         } catch (fallbackError) {
-            console.error('Failed to copy text to clipboard.', fallbackError);
-            toast.error('Failed to copy signature.');
+          console.error('Failed to copy text to clipboard.', fallbackError);
+          toast.error('Failed to copy signature.');
         }
       }
     };
@@ -230,33 +231,33 @@ const SignatureGenerator = () => {
         renderedSocial.add('whatsapp');
 
         const socialIcons = [
-            fieldOrder.includes('linkedin') && formData.linkedin ? (
-                <a key="linkedin" href={formData.linkedin} style={{ textDecoration: 'none', display: 'inline-block' }}>
-                    <img src="https://img.icons8.com/ios-filled/50/0077B5/linkedin.png" alt="LinkedIn" width={styles.iconSize} height={styles.iconSize} style={{ display: 'block', width: `${styles.iconSize}px`, height: `${styles.iconSize}px` }} />
-                </a>
-            ) : null,
-            fieldOrder.includes('github') && formData.github ? (
-                <a key="github" href={formData.github} style={{ textDecoration: 'none', display: 'inline-block' }}>
-                    <img src="https://img.icons8.com/ios-filled/50/000000/github.png" alt="GitHub" width={styles.iconSize} height={styles.iconSize} style={{ display: 'block', width: `${styles.iconSize}px`, height: `${styles.iconSize}px` }} />
-                </a>
-            ) : null,
-            fieldOrder.includes('whatsapp') && formData.phone ? (
-                <a key="whatsapp" href={`https://wa.me/${formData.phone}`} style={{ textDecoration: 'none', display: 'inline-block' }}>
-                    <img src="https://img.icons8.com/ios-filled/50/25D366/whatsapp.png" alt="WhatsApp" width={styles.iconSize} height={styles.iconSize} style={{ display: 'block', width: `${styles.iconSize}px`, height: `${styles.iconSize}px` }} />
-                </a>
-            ) : null,
+          fieldOrder.includes('linkedin') && formData.linkedin ? (
+            <a key="linkedin" href={formData.linkedin} style={{ textDecoration: 'none', display: 'inline-block' }}>
+              <img src="https://img.icons8.com/ios-filled/50/0077B5/linkedin.png" alt="LinkedIn" width={styles.iconSize} height={styles.iconSize} style={{ display: 'block', width: `${styles.iconSize}px`, height: `${styles.iconSize}px` }} />
+            </a>
+          ) : null,
+          fieldOrder.includes('github') && formData.github ? (
+            <a key="github" href={formData.github} style={{ textDecoration: 'none', display: 'inline-block' }}>
+              <img src="https://img.icons8.com/ios-filled/50/000000/github.png" alt="GitHub" width={styles.iconSize} height={styles.iconSize} style={{ display: 'block', width: `${styles.iconSize}px`, height: `${styles.iconSize}px` }} />
+            </a>
+          ) : null,
+          fieldOrder.includes('whatsapp') && formData.phone ? (
+            <a key="whatsapp" href={`https://wa.me/${formData.phone}`} style={{ textDecoration: 'none', display: 'inline-block' }}>
+              <img src="https://img.icons8.com/ios-filled/50/25D366/whatsapp.png" alt="WhatsApp" width={styles.iconSize} height={styles.iconSize} style={{ display: 'block', width: `${styles.iconSize}px`, height: `${styles.iconSize}px` }} />
+            </a>
+          ) : null,
         ].filter(Boolean);
 
         return (
           <table key="social-icons" cellPadding="0" cellSpacing="0" style={{ borderCollapse: 'collapse', marginTop: '5px' }}>
             <tbody>
-              <tr>
-                {socialIcons.map((icon, index) => (
-                    <td key={index} style={{ paddingRight: index === socialIcons.length - 1 ? '0' : `${styles.socialIconSpacing}px` }}>
-                        {icon}
-                    </td>
-                ))}
-              </tr>
+            <tr>
+              {socialIcons.map((icon, index) => (
+                <td key={index} style={{ paddingRight: index === socialIcons.length - 1 ? '0' : `${styles.socialIconSpacing}px` }}>
+                  {icon}
+                </td>
+              ))}
+            </tr>
             </tbody>
           </table>
         );
@@ -632,7 +633,7 @@ const SignatureGenerator = () => {
               <Button size="sm"
                       className="bg-black text-white hover:bg-black hover:opacity-90"
                       onClick={copySignatureToClipboard}><Copy
-              className="w-4 h-4 mr-2"/>{t("tools.signature-generator.copy.signature")}</Button></div>
+                className="w-4 h-4 mr-2"/>{t("tools.signature-generator.copy.signature")}</Button></div>
           </CardHeader>
           <CardContent>
             <BrowserMockup>
