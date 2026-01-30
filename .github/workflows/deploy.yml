@@ -19,6 +19,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest # Use a Linux server
+    environment: github-pages
     steps:
       # 1. Check out your repository's code
       - name: Checkout
