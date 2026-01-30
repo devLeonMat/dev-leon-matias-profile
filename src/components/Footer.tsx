@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "./ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { APP_VERSION } from "@/lib/appVersion";
 
 const { VITE_EMAIL, VITE_LINKEDIN_URL, VITE_GITHUB_URL } = import.meta.env;
 
@@ -10,9 +11,13 @@ const Footer = () => {
   return (
     <footer className="py-8 px-4 border-t border-border">
       <div className="container mx-auto max-w-6xl">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p className="text-muted-foreground text-sm">
             {t("footer.rights")}
+          </p>
+
+          <p className="text-xs tracking-widest text-muted-foreground uppercase">
+            Versión {APP_VERSION}
           </p>
 
           <div className="flex gap-2">
