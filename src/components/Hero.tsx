@@ -1,15 +1,10 @@
-import { ArrowDown, Github, Linkedin, Mail, FileDown } from "lucide-react";
+import { Github, Linkedin, Mail, FileDown, ArrowDown } from "lucide-react";
 import { Button } from "./ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import heroImage1 from "@/assets/fullstack-hero.jpg";
-import heroImage2 from "@/assets/programmer-three-screens.jpg";
-import heroImage3 from "@/assets/mobile-dev-hero.jpg";
-import heroImage4 from "@/assets/devops-hero.jpg";
+import myPhoto from "@/assets/photo.jpeg";
 import whatsappIcon from "@/assets/brands/whatsapp-icon.svg";
 
-// Destructure environment variables
 const {
   VITE_WHATSAPP_NUMBER,
   VITE_EMAIL,
@@ -18,33 +13,19 @@ const {
   VITE_RESUME_URL,
 } = import.meta.env;
 
-const whatsappUrl = `https://wa.me/${VITE_WHATSAPP_NUMBER}?text=Hola%20Leon,%20me%20gustaría%20contactarte`;
+const whatsappUrl = `https://wa.me/${VITE_WHATSAPP_NUMBER}?text=Hi%20Leon,%20I'd%20like%20to%20connect`;
+
+const stats = [
+  { value: "12+", label: "Years Experience" },
+  { value: "3", label: "US Companies" },
+  { value: "UTC-5", label: "Americas Timezone" },
+];
 
 const Hero = () => {
   const { t } = useLanguage();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const heroImages = [heroImage1, heroImage2, heroImage3, heroImage4];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToProjects = () => {
-    const element = document.getElementById('projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleCopyEmail = () => {
@@ -53,41 +34,57 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10"></div>
-
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(100,100,100,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(100,100,100,0.05)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+    <section
+      id="home"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20"
+    >
+      <div className="absolute inset-0 hero-bg pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          {/* Text */}
           <div className="space-y-8 animate-fade-in text-center lg:text-left">
-            {/* Main heading */}
-            <div className="space-y-4">
-              <p className="text-xl md:text-2xl text-muted-foreground">
+            <div className="space-y-2">
+              <span className="badge-pill animate-fade-in">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                {t("hero.availability")}
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-lg text-muted-foreground font-medium">
                 {t("hero.greeting")}
               </p>
-              <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-                <span className="text-gradient">
-                  {t("hero.title")}
-                </span>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-none">
+                <span className="text-gradient">Leon Matias</span>
               </h1>
-              <h2 className="text-3xl md:text-4xl font-semibold text-foreground/90">
+              <h2 className="text-2xl md:text-3xl font-semibold text-foreground/80">
                 {t("hero.role")}
               </h2>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl lg:max-w-none">
+              <p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
                 {t("hero.subtitle")}
               </p>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start items-center">
+            {/* Stats */}
+            <div className="flex flex-wrap gap-6 justify-center lg:justify-start pt-2">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center lg:text-left">
+                  <p className="text-2xl font-bold text-gradient">{stat.value}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
               <Button
                 size="lg"
-                onClick={scrollToContact}
-                className="bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-opacity shadow-lg shadow-primary/30 hover-scale"
+                onClick={() => scrollToSection("contact")}
+                className="shadow-primary font-semibold"
+                style={{
+                  background: "var(--gradient-primary)",
+                }}
               >
                 {t("hero.cta.contact")}
                 <Mail className="ml-2 h-4 w-4" />
@@ -95,119 +92,95 @@ const Hero = () => {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={scrollToProjects}
-                className="border-primary/50 hover:text-primary hover:bg-primary/10 hover:border-primary hover-scale"
+                onClick={() => scrollToSection("timeline")}
+                className="font-semibold"
               >
                 {t("hero.cta.projects")}
                 <ArrowDown className="ml-2 h-4 w-4" />
               </Button>
               <Button
                 size="lg"
-                variant="outline"
+                variant="ghost"
                 asChild
-                className="border-primary/50 hover:text-primary hover:bg-primary/10 hover:border-primary hover-scale"
+                className="font-semibold text-muted-foreground hover:text-foreground"
               >
-                <a
-                  href={VITE_RESUME_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={VITE_RESUME_URL} target="_blank" rel="noopener noreferrer">
                   {t("hero.cta.resume")}
                   <FileDown className="ml-2 h-4 w-4" />
                 </a>
               </Button>
             </div>
 
-            {/* Social Links & Contact */}
-            <div className="space-y-3 pt-8">
-              <p className="text-sm text-muted-foreground font-medium">{t("hero.connect")}</p>
-              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
-                <Button
-                  variant="outline"
-                  className="hover:text-white hover:bg-[#181717] hover:border-[#181717] transition-all hover-scale"
-                  asChild
-                >
-                  <a href={VITE_GITHUB_URL} target="_blank" rel="noopener noreferrer">
-                    <Github className="h-4 w-4 mr-2" />
-                    GitHub
-                  </a>
-                </Button>
-
-                <Button
-                  variant="outline"
-                  className="hover:text-white hover:bg-[#0A66C2] hover:border-[#0A66C2] transition-all hover-scale"
-                  asChild
-                >
-                  <a href={VITE_LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-4 w-4 mr-2" />
-                    LinkedIn
-                  </a>
-                </Button>
-
-                <Button
-                  variant="outline"
-                  className="hover:text-primary hover:bg-primary/10 hover:border-primary transition-all hover-scale"
-                  onClick={handleCopyEmail}
-                >
-                  <Mail className="h-4 w-4 mr-2" />
-                  Email
-                </Button>
-
-                <Button
-                  variant="outline"
-                  className="hover:text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] transition-all hover-scale"
-                  asChild
-                >
-                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                    <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4 mr-2" />
-                    WhatsApp
-                  </a>
-                </Button>
-              </div>
+            {/* Social */}
+            <div className="flex flex-wrap gap-2 justify-center lg:justify-start pt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="hover:border-[#181717] hover:text-[#181717] dark:hover:text-white dark:hover:border-white transition-colors"
+                asChild
+              >
+                <a href={VITE_GITHUB_URL} target="_blank" rel="noopener noreferrer">
+                  <Github className="h-4 w-4 mr-1.5" />
+                  GitHub
+                </a>
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="hover:border-[#0A66C2] hover:text-[#0A66C2] transition-colors"
+                asChild
+              >
+                <a href={VITE_LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+                  <Linkedin className="h-4 w-4 mr-1.5" />
+                  LinkedIn
+                </a>
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="hover:border-primary hover:text-primary transition-colors"
+                onClick={handleCopyEmail}
+              >
+                <Mail className="h-4 w-4 mr-1.5" />
+                Email
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="hover:border-[#25D366] hover:text-[#25D366] transition-colors"
+                asChild
+              >
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                  <img src={whatsappIcon} alt="WhatsApp" className="h-4 w-4 mr-1.5" />
+                  WhatsApp
+                </a>
+              </Button>
             </div>
           </div>
 
-          {/* Hero Image Carousel */}
-          <div className="relative animate-fade-in lg:block hidden" style={{ animationDelay: '200ms' }}>
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 hover-scale">
-              {heroImages.map((image, index) => (
+          {/* Photo */}
+          <div
+            className="hidden lg:flex justify-center items-center animate-scale-in"
+            style={{ animationDelay: "150ms" }}
+          >
+            <div className="relative">
+              <div
+                className="w-80 h-80 xl:w-96 xl:h-96 rounded-2xl overflow-hidden card-elevated card-primary"
+              >
                 <img
-                  key={index}
-                  src={image}
-                  alt={`Developer Workspace ${index + 1}`}
-                  className={`w-full h-auto object-cover transition-opacity duration-1000 ${
-                    index === currentImageIndex ? 'opacity-100' : 'opacity-0 absolute inset-0'
-                  }`}
+                  src={myPhoto}
+                  alt="Leon Matias"
+                  className="w-full h-full object-cover"
                 />
-              ))}
-              {/* Glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-accent/20 pointer-events-none"></div>
+              </div>
+              {/* Decorative blobs */}
+              <div className="absolute -top-6 -right-6 w-32 h-32 rounded-full opacity-20 blur-2xl"
+                style={{ background: "var(--gradient-primary)" }} />
+              <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full opacity-15 blur-2xl"
+                style={{ background: "var(--gradient-secondary)" }} />
             </div>
-            {/* Carousel indicators */}
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
-              {heroImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === currentImageIndex
-                      ? 'bg-primary w-8'
-                      : 'bg-primary/30 hover:bg-primary/50'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-            {/* Floating elements decoration */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-2xl animate-pulse"></div>
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
           </div>
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <ArrowDown className="h-6 w-6 text-primary" />
       </div>
     </section>
   );

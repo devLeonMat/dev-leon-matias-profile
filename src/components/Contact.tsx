@@ -1,6 +1,5 @@
 import { Mail, MapPin, Copy } from "lucide-react";
 import { Button } from "./ui/button";
-import { Card } from "./ui/card";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
@@ -13,7 +12,7 @@ import {
 import whatsappIcon from "@/assets/brands/whatsapp-icon.svg";
 
 const { VITE_EMAIL, VITE_WHATSAPP_NUMBER } = import.meta.env;
-const whatsappUrl = `https://wa.me/${VITE_WHATSAPP_NUMBER}?text=Hola%20Leon,%20me%20gustaría%20contactarte`;
+const whatsappUrl = `https://wa.me/${VITE_WHATSAPP_NUMBER}?text=Hi%20Leon,%20I'd%20like%20to%20connect`;
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -21,7 +20,7 @@ const Contact = () => {
 
   const handleCopy = (value: string, label: string) => {
     navigator.clipboard.writeText(value);
-    toast.success(`${label} copiado al portapapeles`);
+    toast.success(`${label} copied`);
   };
 
   const contactInfo = [
@@ -30,110 +29,104 @@ const Contact = () => {
       label: t("contact.info.email"),
       value: VITE_EMAIL,
       link: `mailto:${VITE_EMAIL}`,
-      isWhatsApp: false
+      isWhatsApp: false,
     },
     {
       icon: "whatsapp",
       label: t("contact.info.phone"),
       value: `+${VITE_WHATSAPP_NUMBER}`,
       link: whatsappUrl,
-      isWhatsApp: true
+      isWhatsApp: true,
     },
     {
       icon: MapPin,
       label: t("contact.info.location"),
-      value: "Perú",
-      isWhatsApp: false
-    }
+      value: "Perú · UTC-5",
+      isWhatsApp: false,
+    },
   ];
 
   return (
-    <section id="contact" className="py-20 px-4 bg-muted/30">
-      <div className="container mx-auto max-w-6xl">
+    <section id="contact" className="py-24 px-4 section-alt">
+      <div className="container mx-auto max-w-3xl">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            {t("contact.title")} <span className="text-gradient">{t("contact.title.highlight")}</span>
+            {t("contact.title")}{" "}
+            <span className="text-gradient">{t("contact.title.highlight")}</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
-            {t("contact.subtitle")}
-          </p>
+          <p className="text-muted-foreground text-lg">{t("contact.subtitle")}</p>
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          <div className="space-y-6 animate-fade-in">
-            <div className="grid gap-6">
-              {contactInfo.map((item, index) => {
-                const hasCopy = item.icon === Mail || item.isWhatsApp;
-                const content = (
-                  <div className="flex items-center gap-6 justify-between">
-                    <div className="flex items-center gap-6 flex-1">
-                      <div className="p-4 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10">
-                        {item.isWhatsApp ? (
-                          <img src={whatsappIcon} alt="WhatsApp" className="h-6 w-6" />
-                        ) : (
-                          <item.icon className="h-6 w-6 text-primary" />
-                        )}
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-1">{item.label}</p>
-                        <p className="font-semibold text-lg">{item.value}</p>
-                      </div>
-                    </div>
-                    {hasCopy && (
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className={`transition-all duration-200 hover:bg-primary/10 hover:text-primary ${
-                                hoveredIndex === index ? 'opacity-100' : 'opacity-0'
-                              }`}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                handleCopy(item.value, item.label);
-                              }}
-                            >
-                              <Copy className="h-5 w-5 text-foreground" />
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>{t(item.isWhatsApp ? "contact.copy.phone" : "contact.copy.email")}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+        <div className="space-y-4 animate-fade-in">
+          {contactInfo.map((item, index) => {
+            const hasCopy = item.icon === Mail || item.isWhatsApp;
+            const content = (
+              <div className="flex items-center gap-4 justify-between">
+                <div className="flex items-center gap-4 flex-1">
+                  <div className="p-3 rounded-xl bg-primary/10 shrink-0">
+                    {item.isWhatsApp ? (
+                      <img src={whatsappIcon} alt="WhatsApp" className="h-5 w-5" />
+                    ) : (
+                      <item.icon className="h-5 w-5 text-primary" />
                     )}
                   </div>
-                );
-
-                return (
-                  <Card
-                    key={index}
-                    className="p-6 bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/40 transition-all hover-scale relative"
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                  >
-                    {item.link ? (
-                      <a href={item.link} target="_blank" rel="noopener noreferrer" className="block">
-                        {content}
-                      </a>
-                    ) : (
-                      content
-                    )}
-                  </Card>
-                );
-              })}
-            </div>
-
-            <Card className="p-8 bg-gradient-to-br from-primary/10 to-secondary/10 border-glow mt-8">
-              <div className="text-center">
-                <h4 className="font-semibold text-xl mb-3">{t("contact.card.title")}</h4>
-                <p className="text-muted-foreground">
-                  {t("contact.card.desc")}
-                </p>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-0.5">{item.label}</p>
+                    <p className="font-semibold">{item.value}</p>
+                  </div>
+                </div>
+                {hasCopy && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className={`transition-opacity hover:bg-primary/10 hover:text-primary ${
+                            hoveredIndex === index ? "opacity-100" : "opacity-0"
+                          }`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            handleCopy(item.value, item.label);
+                          }}
+                        >
+                          <Copy className="h-4 w-4" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{t(item.isWhatsApp ? "contact.copy.phone" : "contact.copy.email")}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
               </div>
-            </Card>
+            );
+
+            return (
+              <div
+                key={index}
+                className="card-elevated rounded-xl p-5 hover-lift transition-all"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                {item.link ? (
+                  <a href={item.link} target="_blank" rel="noopener noreferrer" className="block">
+                    {content}
+                  </a>
+                ) : (
+                  content
+                )}
+              </div>
+            );
+          })}
+
+          <div
+            className="rounded-xl p-8 text-center mt-6 animate-fade-in"
+            style={{ background: "var(--gradient-primary)", animationDelay: "200ms" }}
+          >
+            <h4 className="font-bold text-xl mb-2 text-white">{t("contact.card.title")}</h4>
+            <p className="text-white/80 text-sm max-w-md mx-auto">{t("contact.card.desc")}</p>
           </div>
         </div>
       </div>

@@ -7,11 +7,22 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const navItems = [
+    { label: t("nav.home"), id: "home" },
+    { label: t("nav.about"), id: "about" },
+    { label: t("nav.skills"), id: "skills" },
+    { label: t("nav.projects"), id: "timeline" },
+    { label: t("nav.github"), id: "github" },
+    { label: t("nav.contact"), id: "contact" },
+    { label: t("nav.tools"), id: "tools" },
+  ];
 
   const scrollToSection = (sectionId: string) => {
     if (sectionId === "tools") {
@@ -22,54 +33,33 @@ const Navigation = () => {
     if (location.pathname !== "/home") {
       navigate("/home");
       setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
       }, 100);
     } else {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
     }
     setIsOpen(false);
   };
 
-  const navItems = [
-    { label: t("nav.home"), id: "home" },
-    { label: t("nav.about"), id: "about" },
-    { label: t("nav.skills"), id: "skills" },
-    { label: t("nav.projects"), id: "projects" },
-    { label: t("nav.github"), id: "github" },
-    { label: t("nav.contact"), id: "contact" },
-    { label: t("nav.tools"), id: "tools" },
-  ];
-
   useEffect(() => {
-    if (location.pathname === "/tools") {
-      setActiveSection("tools");
-      return;
-    }
-
     const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      if (location.pathname === "/tools") {
+        setActiveSection("tools");
+        return;
+      }
+
       const sections = navItems
-        .map((item) => ({
-          id: item.id,
-          element: document.getElementById(item.id),
-        }))
-        .filter((section) => section.element !== null);
+        .map((item) => ({ id: item.id, element: document.getElementById(item.id) }))
+        .filter((s) => s.element !== null);
 
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
-
+      const scrollPos = window.scrollY + window.innerHeight / 3;
       for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section.element) {
-          const offsetTop = section.element.offsetTop;
-          if (scrollPosition >= offsetTop) {
-            setActiveSection(section.id);
-            break;
-          }
+        const el = sections[i].element;
+        if (el && scrollPos >= el.offsetTop) {
+          setActiveSection(sections[i].id);
+          break;
         }
       }
     };
@@ -77,133 +67,106 @@ const Navigation = () => {
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [t, location.pathname]);
+  }, [location.pathname]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-      <div className="container mx-auto px-4 py-4">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="container mx-auto px-4 py-3.5">
         <div className="flex items-center justify-between">
           <button
             onClick={() => scrollToSection("home")}
-            className="text-2xl font-bold text-gradient hover:opacity-80 transition-opacity cursor-pointer"
+            className="text-xl font-bold text-gradient hover:opacity-80 transition-opacity"
           >
             Leon Matias
           </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Desktop */}
+          <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`
-                  relative px-4 py-2 font-medium transition-all duration-300
-                  ${
-                    activeSection === item.id
-                      ? "text-primary"
-                      : "text-foreground hover:text-primary"
-                  }
-                  after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5
-                  after:bg-gradient-to-r after:from-primary after:to-secondary
-                  after:origin-left after:transition-transform after:duration-300
-                  ${
-                    activeSection === item.id
-                      ? "after:scale-x-100"
-                      : "after:scale-x-0 hover:after:scale-x-100"
-                  }
-                `}
+                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  activeSection === item.id
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
               >
                 {item.label}
               </button>
             ))}
 
-            {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="hover:text-primary hover:bg-primary/10 transition-all duration-300 hover-scale"
-            >
-              {theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-
-            {/* Language Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setLanguage(language === "es" ? "en" : "es")}
-              className="hover:text-primary hover:bg-primary/10 transition-all duration-300 hover-scale"
-            >
-              <Languages className="h-4 w-4 mr-2" />
-              {language.toUpperCase()}
-            </Button>
+            <div className="ml-2 flex items-center gap-1 border-l border-border pl-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleTheme}
+                className="h-8 w-8 text-muted-foreground hover:text-foreground"
+              >
+                {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setLanguage(language === "es" ? "en" : "es")}
+                className="h-8 text-xs font-semibold text-muted-foreground hover:text-foreground"
+              >
+                <Languages className="h-3.5 w-3.5 mr-1" />
+                {language.toUpperCase()}
+              </Button>
+            </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-2">
+          {/* Mobile */}
+          <div className="flex md:hidden items-center gap-1">
             <Button
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="hover:text-primary hover:bg-primary/10 transition-all duration-300 hover-scale"
+              className="h-8 w-8 text-muted-foreground"
             >
-              {theme === "dark" ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
-
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
+              className="h-8 w-8"
             >
-              {isOpen ? <X /> : <Menu />}
+              {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden mt-4 py-4 flex flex-col gap-2 animate-fade-in">
+          <div className="md:hidden mt-2 pb-2 border-t border-border pt-3 flex flex-col gap-1 animate-fade-in">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`
-                  relative px-4 py-3 font-medium transition-all duration-300 text-left
-                  ${
-                    activeSection === item.id
-                      ? "text-primary"
-                      : "text-foreground hover:text-primary"
-                  }
-                  after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5
-                  after:bg-gradient-to-r after:from-primary after:to-secondary
-                  after:origin-left after:transition-transform after:duration-300
-                  ${
-                    activeSection === item.id
-                      ? "after:scale-x-100"
-                      : "after:scale-x-0 hover:after:scale-x-100"
-                  }
-                `}
+                className={`px-3 py-2.5 rounded-lg text-sm font-medium text-left transition-all ${
+                  activeSection === item.id
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
               >
                 {item.label}
               </button>
             ))}
-            <Button
-              variant="outline"
-              size="sm"
+            <button
               onClick={() => setLanguage(language === "es" ? "en" : "es")}
-              className="w-fit"
+              className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-all w-fit mt-1"
             >
-              <Languages className="h-4 w-4 mr-2" />
+              <Languages className="h-3.5 w-3.5" />
               {language === "es" ? "English" : "Español"}
-            </Button>
+            </button>
           </div>
         )}
       </div>

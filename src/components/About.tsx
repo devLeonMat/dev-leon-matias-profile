@@ -1,7 +1,13 @@
-import { Code2, Rocket, Users } from "lucide-react";
+import { Code2, Rocket, Globe } from "lucide-react";
 import { Card } from "./ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
-import  myPhoto from '@/assets/photo.jpeg';
+
+const metrics = [
+  { value: "12+", label: "Years of Engineering" },
+  { value: "3", label: "US Companies" },
+  { value: "5+", label: "Industries Served" },
+  { value: "∞", label: "Coffee Consumed" },
+];
 
 const About = () => {
   const { t } = useLanguage();
@@ -10,67 +16,78 @@ const About = () => {
     {
       icon: Code2,
       title: t("about.highlight1.title"),
-      description: t("about.highlight1.desc")
+      description: t("about.highlight1.desc"),
     },
     {
       icon: Rocket,
       title: t("about.highlight2.title"),
-      description: t("about.highlight2.desc")
+      description: t("about.highlight2.desc"),
     },
     {
-      icon: Users,
+      icon: Globe,
       title: t("about.highlight3.title"),
-      description: t("about.highlight3.desc")
-    }
+      description: t("about.highlight3.desc"),
+    },
   ];
 
   return (
-    <section id="about" className="py-20 px-4">
+    <section id="about" className="py-24 px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            {t("about.title")} <span className="text-gradient">{t("about.title.highlight")}</span>
+            {t("about.title")}{" "}
+            <span className="text-gradient">{t("about.title.highlight")}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             {t("about.subtitle")}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+        {/* Metrics */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16 animate-fade-in">
+          {metrics.map((m) => (
+            <div
+              key={m.label}
+              className="card-elevated p-6 text-center hover-lift rounded-xl"
+            >
+              <p className="text-3xl font-bold text-gradient mb-1">{m.value}</p>
+              <p className="text-sm text-muted-foreground">{m.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
           <div className="space-y-4 animate-fade-in">
-            <p className="text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed text-foreground">
               {t("about.p1")}
             </p>
-            <p className="text-lg leading-relaxed text-muted-foreground">
+            <p className="text-base leading-relaxed text-muted-foreground">
               {t("about.p2")}
             </p>
-            <p className="text-lg leading-relaxed text-muted-foreground">
+            <p className="text-base leading-relaxed text-muted-foreground">
               {t("about.p3")}
             </p>
           </div>
 
-          <div className="relative animate-scale-in">
-            <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border-glow relative overflow-hidden">
-              <img
-                src={myPhoto}
-                className="w-full h-full object-cover"
-              />
-            </div>
+          <div className="grid gap-4">
+            {highlights.map((item, index) => (
+              <Card
+                key={index}
+                className="p-5 hover-lift transition-all animate-fade-in"
+                style={{ animationDelay: `${index * 80}ms` }}
+              >
+                <div className="flex items-start gap-4">
+                  <div className="p-2.5 rounded-lg bg-primary/10 shrink-0">
+                    <item.icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                  </div>
+                </div>
+              </Card>
+            ))}
           </div>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {highlights.map((item, index) => (
-            <Card
-              key={index}
-              className="p-6 bg-card/50 backdrop-blur-sm border-glow hover:bg-card/70 transition-all hover:-translate-y-1 animate-fade-in hover-scale"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <item.icon className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-              <p className="text-muted-foreground">{item.description}</p>
-            </Card>
-          ))}
         </div>
       </div>
     </section>

@@ -1,100 +1,122 @@
-import { Code, Database, Wrench } from "lucide-react";
-import { Card } from "./ui/card";
-import { Badge } from "./ui/badge";
+import { Code, Layers, Cloud } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+const skillCategories = [
+  {
+    icon: Code,
+    titleKey: "skills.languages",
+    skills: [
+      { name: "Java", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/java.svg" },
+      { name: "TypeScript", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/typescript.svg" },
+      { name: "JavaScript", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/javascript.svg" },
+      { name: "Scala", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/scala.svg" },
+      { name: "SQL", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/postgresql.svg" },
+    ],
+  },
+  {
+    icon: Layers,
+    titleKey: "skills.frameworks",
+    skills: [
+      { name: "Spring Boot", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/spring.svg" },
+      { name: "React", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/react.svg" },
+      { name: "Angular", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/angular.svg" },
+      { name: "Node.js", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nodedotjs.svg" },
+      { name: "NestJS", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nestjs.svg" },
+      { name: "Spring Cloud", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/spring.svg" },
+    ],
+  },
+  {
+    icon: Cloud,
+    titleKey: "skills.cloud",
+    skills: [
+      { name: "AWS", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazonaws.svg" },
+      { name: "Azure", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftazure.svg" },
+      { name: "Docker", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/docker.svg" },
+      { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/kubernetes.svg" },
+      { name: "Kafka", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/apachekafka.svg" },
+      { name: "Redis", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/redis.svg" },
+    ],
+  },
+];
+
+const dbAndTesting = [
+  { name: "Oracle", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/oracle.svg" },
+  { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/postgresql.svg" },
+  { name: "MongoDB", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mongodb.svg" },
+  { name: "SQL Server", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftsqlserver.svg" },
+  { name: "CosmosDB", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftazure.svg" },
+  { name: "JUnit", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/junit5.svg" },
+  { name: "Mockito", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/java.svg" },
+  { name: "Jest", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/jest.svg" },
+  { name: "Git", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/git.svg" },
+  { name: "Jenkins", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/jenkins.svg" },
+];
 
 const Skills = () => {
   const { t } = useLanguage();
 
-  const skillCategories = [
-    {
-      icon: Code,
-      title: t("skills.frontend"),
-      skills: [
-        { name: "React", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/react.svg" },
-        { name: "Angular", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/angular.svg" },
-        { name: "TypeScript", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/typescript.svg" },
-        { name: "JavaScript", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/javascript.svg" },
-        { name: "Tailwind", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tailwindcss.svg" },
-        { name: "Material UI", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mui.svg" },
-        { name: "Vue.js", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vuedotjs.svg" },
-        { name: "RxJS", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/reactivex.svg" }
-      ]
-    },
-    {
-      icon: Database,
-      title: t("skills.backend"),
-      skills: [
-        { name: "Java", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/oracle.svg" },
-        { name: "Spring Boot", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/spring.svg" },
-        { name: "Node.js", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nodedotjs.svg" },
-        { name: "NestJS", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nestjs.svg" },
-        { name: "Scala", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/scala.svg" },
-        { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/postgresql.svg" },
-        { name: "MongoDB", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mongodb.svg" },
-        { name: "Oracle", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/oracle.svg" }
-      ]
-    },
-    {
-      icon: Wrench,
-      title: t("skills.tools"),
-      skills: [
-        { name: "AWS", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazonaws.svg" },
-        { name: "Azure", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftazure.svg" },
-        { name: "Docker", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/docker.svg" },
-        { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/kubernetes.svg" },
-        { name: "Kafka", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/apachekafka.svg" },
-        { name: "Git", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/git.svg" },
-        { name: "Jenkins", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/jenkins.svg" },
-        { name: "GraphQL", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/graphql.svg" }
-      ]
-    }
-  ];
-
   return (
-    <section id="skills" className="py-20 px-4 bg-muted/30">
+    <section id="skills" className="py-24 px-4 section-alt">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            {t("skills.title")} <span className="text-gradient">{t("skills.title.highlight")}</span>
+            {t("skills.title")}{" "}
+            <span className="text-gradient">{t("skills.title.highlight")}</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
-            {t("skills.subtitle")}
-          </p>
+          <p className="text-muted-foreground text-lg">{t("skills.subtitle")}</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6 mb-6">
           {skillCategories.map((category, index) => (
-            <Card 
+            <div
               key={index}
-              className="p-8 bg-card/50 backdrop-blur-sm border-glow hover:bg-card/70 transition-all animate-fade-in hover-scale"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="card-elevated p-6 rounded-xl animate-fade-in hover-lift"
+              style={{ animationDelay: `${index * 80}ms` }}
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 rounded-lg bg-primary/10">
-                  <category.icon className="h-6 w-6 text-primary" />
+              <div className="flex items-center gap-3 mb-5">
+                <div className="p-2.5 rounded-lg bg-primary/10">
+                  <category.icon className="h-5 w-5 text-primary" />
                 </div>
-                <h3 className="text-2xl font-semibold">{category.title}</h3>
+                <h3 className="text-lg font-semibold">{t(category.titleKey)}</h3>
               </div>
-              
+
               <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill, skillIndex) => (
-                  <Badge 
-                    key={skillIndex}
-                    variant="secondary"
-                    className="bg-primary/10 text-primary border-primary/30 hover:bg-primary/20 transition-colors hover-scale flex items-center gap-2 py-1.5 px-3"
+                {category.skills.map((skill) => (
+                  <span
+                    key={skill.name}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-sm font-medium bg-muted hover:bg-primary/10 hover:text-primary transition-colors cursor-default"
                   >
-                    <img 
-                      src={skill.logo} 
+                    <img
+                      src={skill.logo}
                       alt={skill.name}
-                      className="w-4 h-4 object-contain dark:invert dark:brightness-0"
+                      className="w-3.5 h-3.5 object-contain dark:invert"
                     />
                     {skill.name}
-                  </Badge>
+                  </span>
                 ))}
               </div>
-            </Card>
+            </div>
           ))}
+        </div>
+
+        {/* Databases & Testing row */}
+        <div className="card-elevated p-5 rounded-xl animate-fade-in" style={{ animationDelay: "240ms" }}>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Databases · Testing · DevOps</p>
+          <div className="flex flex-wrap gap-2">
+            {dbAndTesting.map((skill) => (
+              <span
+                key={skill.name}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-sm font-medium bg-muted hover:bg-primary/10 hover:text-primary transition-colors cursor-default"
+              >
+                <img
+                  src={skill.logo}
+                  alt={skill.name}
+                  className="w-3.5 h-3.5 object-contain dark:invert"
+                />
+                {skill.name}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
