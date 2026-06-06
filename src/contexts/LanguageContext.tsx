@@ -127,6 +127,11 @@ const translations = {
     "companies.bridge.task2": "Construí soluciones event-driven con Kafka y servicios cloud-native en Azure.",
     "companies.bridge.task3": "Desarrollé aplicaciones bancarias con React para productos financieros orientados al cliente.",
 
+    // CTA Banner
+    "cta.heading": "¿Buscas un Lead Engineer?",
+    "cta.subtext": "Disponible para roles remotos en empresas de Estados Unidos y Latinoamérica. Construyamos algo juntos.",
+    "cta.btn.contact": "Hablemos",
+
     // Contact
     "contact.title": "Hablemos del",
     "contact.title.highlight": "Proyecto",
@@ -277,6 +282,11 @@ const translations = {
     "companies.bridge.task1": "Designed and implemented 50+ banking microservices using Java and Spring Boot.",
     "companies.bridge.task2": "Built event-driven solutions using Kafka and cloud-native services on Azure.",
     "companies.bridge.task3": "Developed React-based banking applications supporting customer-facing financial products.",
+
+    // CTA Banner
+    "cta.heading": "Looking for a Lead Engineer?",
+    "cta.subtext": "Available for remote roles at US and Latin America companies. Let's build something great together.",
+    "cta.btn.contact": "Let's Talk",
 
     // Contact
     "contact.title": "Let's Talk About",
