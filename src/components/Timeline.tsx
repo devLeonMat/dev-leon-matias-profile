@@ -1,7 +1,6 @@
+import { useState, useRef, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Badge } from "./ui/badge";
-import { MapPin } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { MapPin, ChevronDown } from "lucide-react";
 import { animate, stagger } from "animejs";
 import outcodingLogo from "@/assets/brands/outcoding.svg";
 import dacodes from "@/assets/brands/dacodes.webp";
@@ -83,189 +82,6 @@ const entries: TimelineEntry[] = [
   },
 ];
 
-const Timeline = () => {
-  const { t } = useLanguage();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const played = useRef(false);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !played.current) {
-          played.current = true;
-
-          // Line draw animation
-          const line = el.querySelector<HTMLElement>(".timeline-line");
-          if (line) {
-            animate(line, { scaleY: [0, 1], duration: 900, ease: "outCubic" });
-          }
-
-          // Cards stagger slide-in
-          const cards = Array.from(el.querySelectorAll("[data-timeline-card]")) as HTMLElement[];
-          animate(cards, {
-            translateX: [-40, 0],
-            opacity: [0, 1],
-            duration: 600,
-            delay: stagger(150, { start: 200 }),
-            ease: "outCubic",
-          });
-
-          // Dots pop
-          const dots = Array.from(el.querySelectorAll("[data-timeline-dot]")) as HTMLElement[];
-          animate(dots, {
-            scale: [0, 1],
-            duration: 400,
-            delay: stagger(150, { start: 300 }),
-            ease: "outBack",
-          });
-
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.05 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section id="timeline" className="py-24 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            {t("timeline.title")}{" "}
-            <span className="text-gradient">{t("timeline.title.highlight")}</span>
-          </h2>
-          <p className="text-muted-foreground text-lg">{t("timeline.subtitle")}</p>
-        </div>
-
-        <div ref={containerRef} className="relative">
-          {/* Vertical line */}
-          <div
-            className="timeline-line absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/70 via-primary/40 to-transparent -translate-x-1/2 origin-top"
-          />
-
-          <div className="space-y-10">
-            {entries.map((entry, index) => (
-              <div key={index} className="relative flex gap-8 md:gap-0" style={{ opacity: 0 }} data-timeline-card>
-
-                {/* Timeline dot */}
-                <div
-                  className="absolute left-6 md:left-1/2 -translate-x-1/2 top-6 z-10"
-                  data-timeline-dot
-                  style={{ transform: "scale(0)" }}
-                >
-                  <div
-                    className="w-3.5 h-3.5 rounded-full border-2 border-background"
-                    style={{
-                      background: entry.current ? "rgb(34 197 94)" : "hsl(var(--primary))",
-                      boxShadow: `0 0 0 4px ${entry.current ? "rgb(34 197 94 / 0.2)" : "hsl(var(--primary) / 0.2)"}`,
-                    }}
-                  />
-                </div>
-
-                {/* Period — left side desktop */}
-                <div className="hidden md:flex md:w-1/2 pr-10 justify-end items-start pt-4">
-                  <div className="text-right">
-                    <p className="text-sm font-semibold text-foreground/70">{entry.period}</p>
-                    <div className="flex items-center gap-1 justify-end mt-1 text-xs text-muted-foreground">
-                      <MapPin className="h-3 w-3" />
-                      {entry.location}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Card */}
-                <div className="ml-12 md:ml-0 md:w-1/2 md:pl-10">
-                  <div className="card-elevated rounded-xl p-5 hover-lift transition-all">
-                    {/* Mobile period */}
-                    <div className="flex items-center gap-2 mb-3 md:hidden">
-                      <p className="text-xs font-medium text-muted-foreground">{entry.period}</p>
-                      {entry.current && <CurrentBadge />}
-                    </div>
-
-                    <div className="flex items-start gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center overflow-hidden shrink-0">
-                        {entry.logo ? (
-                          <img src={entry.logo} alt={entry.company} className="w-full h-full object-contain p-1.5" />
-                        ) : (
-                          <span
-                            className="text-sm font-bold text-white w-full h-full flex items-center justify-center"
-                            style={{ background: entry.initialsColor }}
-                          >
-                            {entry.initials}
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <h3 className="font-bold text-base">{entry.company}</h3>
-                          {entry.current && <span className="hidden md:inline-flex"><CurrentBadge /></span>}
-                        </div>
-                        <p className="text-sm text-primary font-semibold">{entry.role}</p>
-                        <div className="flex items-center gap-1 mt-0.5 text-xs text-muted-foreground md:hidden">
-                          <MapPin className="h-3 w-3" />{entry.location}
-                        </div>
-                      </div>
-                    </div>
-
-                    <ul className="space-y-2 mb-4">
-                      {entry.tasksKeys.map((key) => (
-                        <li key={key} className="flex gap-2 text-sm text-muted-foreground leading-relaxed">
-                          <span className="text-primary mt-0.5 shrink-0 font-bold">▸</span>
-                          {t(key)}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border">
-                      {entry.tech.map((tech) => (
-                        <TechBadge key={tech} name={tech} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {/* Earlier career */}
-            <div className="relative flex gap-8 md:gap-0">
-              <div className="absolute left-6 md:left-1/2 -translate-x-1/2 top-3 z-10">
-                <div className="w-2.5 h-2.5 rounded-full bg-muted-foreground/30 border-2 border-background" />
-              </div>
-              <div className="hidden md:block md:w-1/2" />
-              <div className="ml-12 md:ml-0 md:w-1/2 md:pl-10">
-                <p className="text-xs text-muted-foreground italic pt-2 leading-relaxed">
-                  Earlier: INDRA (BCP, RIMAC Seguros) · Michael Page (Intercorp Retail) · Zoluxiones (SURA Perú) · Experis (Equifax) · Olva Courier · LimaW
-                  <br />
-                  <span className="text-muted-foreground/60">Banking · Insurance · Retail · Logistics · Financial Services</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-function CurrentBadge() {
-  return (
-    <span
-      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"
-      style={{ background: "rgb(34 197 94 / 0.1)", color: "rgb(34 197 94)", border: "1px solid rgb(34 197 94 / 0.3)" }}
-    >
-      <span className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
-      Current
-    </span>
-  );
-}
-
-/** Tech badge using svglogos.dev */
 const techLogoMap: Record<string, string> = {
   "React 18": "https://svglogos.dev/logos/react.svg",
   "React": "https://svglogos.dev/logos/react.svg",
@@ -296,23 +112,179 @@ const techLogoMap: Record<string, string> = {
 function TechBadge({ name }: { name: string }) {
   const logo = techLogoMap[name];
   return (
-    <span
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold
-        bg-muted text-foreground/80 border border-border
-        hover:bg-primary/10 hover:text-primary hover:border-primary/30
-        transition-colors mt-1 cursor-default"
-    >
+    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold
+      bg-muted text-foreground/80 border border-border
+      hover:bg-primary/10 hover:text-primary hover:border-primary/30
+      transition-colors cursor-default">
       {logo && (
-        <img
-          src={logo}
-          alt={name}
-          className="w-3 h-3 object-contain shrink-0"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-        />
+        <img src={logo} alt={name} className="w-3 h-3 object-contain shrink-0"
+          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
       )}
       {name}
     </span>
   );
 }
+
+function AccordionItem({ entry, index, defaultOpen }: {
+  entry: TimelineEntry;
+  index: number;
+  defaultOpen: boolean;
+}) {
+  const { t } = useLanguage();
+  const [open, setOpen] = useState(defaultOpen);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  // Animate height on toggle
+  useEffect(() => {
+    const body = bodyRef.current;
+    const inner = innerRef.current;
+    if (!body || !inner) return;
+    const h = inner.scrollHeight;
+    if (open) {
+      body.style.height = "0px";
+      body.style.overflow = "hidden";
+      animate(body, { height: [0, h], opacity: [0, 1], duration: 320, ease: "outCubic",
+        onComplete: () => { body.style.height = "auto"; body.style.overflow = "visible"; }
+      });
+    } else {
+      body.style.height = `${h}px`;
+      body.style.overflow = "hidden";
+      animate(body, { height: [h, 0], opacity: [1, 0], duration: 260, ease: "inCubic" });
+    }
+  }, [open]);
+
+  return (
+    <div
+      className="border border-border rounded-xl overflow-hidden bg-card transition-shadow hover:shadow-md"
+      style={{ boxShadow: open ? "var(--shadow-elevated)" : "var(--shadow-card)" }}
+    >
+      {/* Header — always visible, click to toggle */}
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full text-left px-5 py-4 flex items-center gap-4 group"
+        aria-expanded={open}
+      >
+        {/* Logo */}
+        <div className="w-11 h-11 rounded-lg bg-muted flex items-center justify-center overflow-hidden shrink-0 border border-border/60">
+          {entry.logo ? (
+            <img src={entry.logo} alt={entry.company} className="w-full h-full object-contain p-1.5" />
+          ) : (
+            <span className="text-sm font-bold text-white w-full h-full flex items-center justify-center rounded-lg"
+              style={{ background: entry.initialsColor }}>
+              {entry.initials}
+            </span>
+          )}
+        </div>
+
+        {/* Info */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-bold text-base">{entry.company}</span>
+            {entry.current && <CurrentBadge />}
+          </div>
+          <p className="text-sm text-primary font-semibold">{entry.role}</p>
+          <div className="flex items-center gap-3 mt-0.5 text-xs text-muted-foreground flex-wrap">
+            <span>{entry.period}</span>
+            <span className="flex items-center gap-1">
+              <MapPin className="h-3 w-3" />{entry.location}
+            </span>
+          </div>
+        </div>
+
+        {/* Chevron */}
+        <ChevronDown
+          className="h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-300"
+          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+        />
+      </button>
+
+      {/* Expandable body */}
+      <div ref={bodyRef} style={{ height: defaultOpen ? "auto" : "0px", opacity: defaultOpen ? 1 : 0, overflow: defaultOpen ? "visible" : "hidden" }}>
+        <div ref={innerRef} className="px-5 pb-5 border-t border-border/60">
+          {/* Bullets */}
+          <ul className="space-y-2 mt-4 mb-4">
+            {entry.tasksKeys.map((key) => (
+              <li key={key} className="flex gap-2 text-sm text-muted-foreground leading-relaxed">
+                <span className="text-primary mt-0.5 shrink-0 font-bold">▸</span>
+                {t(key)}
+              </li>
+            ))}
+          </ul>
+          {/* Tech badges */}
+          <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border">
+            {entry.tech.map((tech) => <TechBadge key={tech} name={tech} />)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CurrentBadge() {
+  return (
+    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium"
+      style={{ background: "rgb(34 197 94 / 0.1)", color: "rgb(34 197 94)", border: "1px solid rgb(34 197 94 / 0.3)" }}>
+      <span className="w-1 h-1 rounded-full bg-green-500 animate-pulse" />
+      Current
+    </span>
+  );
+}
+
+const Timeline = () => {
+  const { t } = useLanguage();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const played = useRef(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !played.current) {
+        played.current = true;
+        const items = Array.from(el.querySelectorAll("[data-item]")) as HTMLElement[];
+        animate(items, {
+          translateY: [24, 0],
+          opacity: [0, 1],
+          duration: 500,
+          delay: stagger(80),
+          ease: "outCubic",
+        });
+        observer.disconnect();
+      }
+    }, { threshold: 0.05 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id="timeline" className="py-24 px-4">
+      <div className="container mx-auto max-w-3xl">
+        <div className="text-center mb-14">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            {t("timeline.title")}{" "}
+            <span className="text-gradient">{t("timeline.title.highlight")}</span>
+          </h2>
+          <p className="text-muted-foreground text-lg">{t("timeline.subtitle")}</p>
+        </div>
+
+        <div ref={sectionRef} className="space-y-3">
+          {entries.map((entry, index) => (
+            <div key={index} data-item style={{ opacity: 0 }}>
+              <AccordionItem entry={entry} index={index} defaultOpen={index === 0} />
+            </div>
+          ))}
+
+          {/* Earlier */}
+          <p className="text-xs text-muted-foreground/70 italic text-center pt-2 leading-relaxed">
+            Earlier: INDRA (BCP, RIMAC Seguros) · Michael Page (Intercorp Retail) · Zoluxiones (SURA Perú) · Experis (Equifax) · Olva Courier · LimaW
+            <br />
+            <span className="text-muted-foreground/50">Banking · Insurance · Retail · Logistics · Financial Services</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default Timeline;
