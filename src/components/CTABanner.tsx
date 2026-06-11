@@ -66,7 +66,7 @@ const CTABanner = () => {
                 size="lg"
                 variant="outline"
                 asChild
-                className="border-white/40 text-white hover:bg-white/10 hover:border-white/70 font-semibold"
+                className="border-white text-white bg-white/10 hover:bg-white/20 hover:border-white font-semibold backdrop-blur-sm"
               >
                 <a href={VITE_RESUME_URL} target="_blank" rel="noopener noreferrer">
                   {t("hero.cta.resume")}
