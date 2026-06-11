@@ -68,25 +68,25 @@ const Hero = () => {
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      {/* Animated gradient orbs */}
+      {/* Animated gradient orbs — solo dark mode */}
       <div
-        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-[0.07] blur-3xl pointer-events-none"
+        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-0 dark:opacity-[0.10] blur-3xl pointer-events-none"
         style={{ background: "var(--gradient-primary)", animation: "orbFloat 8s ease-in-out infinite" }}
       />
       <div
-        className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full opacity-[0.06] blur-3xl pointer-events-none"
+        className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full opacity-0 dark:opacity-[0.08] blur-3xl pointer-events-none"
         style={{ background: "var(--gradient-secondary)", animation: "orbFloat 10s ease-in-out infinite reverse" }}
       />
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full opacity-[0.04] blur-3xl pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full opacity-0 dark:opacity-[0.05] blur-3xl pointer-events-none"
         style={{ background: "hsl(var(--accent))", animation: "orbFloat 12s ease-in-out infinite" }}
       />
 
-      {/* Dot grid */}
+      {/* Dot grid — neutro en light, suave en dark */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.35] dark:opacity-[0.15]"
+        className="absolute inset-0 pointer-events-none opacity-[0.22] dark:opacity-[0.12]"
         style={{
-          backgroundImage: "radial-gradient(circle, hsl(var(--muted-foreground)) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, hsl(0 0% 65%) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
           maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)",
         }}

@@ -4,33 +4,38 @@
 
 @layer base {
   :root {
-    --background: 220 33% 98%;
-    --foreground: 224 71% 4%;
+    /* Fondo limpio blanco puro — sin tinte lila */
+    --background: 0 0% 99%;
+    --foreground: 222 39% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card-foreground: 222 39% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
-    --primary: 239 84% 67%;
+    --popover-foreground: 222 39% 11%;
+    --primary: 239 84% 62%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 217 91% 60%;
+    --secondary: 217 91% 57%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 220 20% 95%;
-    --muted-foreground: 220 14% 46%;
+    /* Muted con muy poca saturación para no teñir */
+    --muted: 210 10% 95%;
+    --muted-foreground: 215 16% 38%;
     --accent: 262 83% 58%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 239 84% 67%;
+    /* Bordes más visibles */
+    --border: 214 12% 85%;
+    --input: 214 12% 85%;
+    --ring: 239 84% 62%;
     --radius: 0.75rem;
-    --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.07), 0 1px 2px -1px rgb(0 0 0 / 0.07);
-    --shadow-elevated: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
-    --shadow-primary: 0 4px 14px 0 hsl(239 84% 67% / 0.25);
-    --gradient-hero: radial-gradient(ellipse at 60% 0%, hsl(239 84% 67% / 0.12) 0%, transparent 60%),
-                     radial-gradient(ellipse at 80% 50%, hsl(262 83% 58% / 0.08) 0%, transparent 50%);
-    --gradient-primary: linear-gradient(135deg, hsl(239 84% 67%) 0%, hsl(262 83% 58%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(239 84% 67%) 100%);
+    /* Sombras con más definición en light mode */
+    --shadow-card: 0 1px 4px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+    --shadow-elevated: 0 4px 12px -2px rgb(0 0 0 / 0.10), 0 2px 6px -2px rgb(0 0 0 / 0.07);
+    --shadow-primary: 0 4px 14px 0 hsl(239 84% 62% / 0.28);
+    /* Gradientes hero con menos opacidad para no teñir el fondo */
+    --gradient-hero: radial-gradient(ellipse at 60% 0%, hsl(239 84% 62% / 0.06) 0%, transparent 55%),
+                     radial-gradient(ellipse at 80% 50%, hsl(262 83% 58% / 0.04) 0%, transparent 45%);
+    --gradient-primary: linear-gradient(135deg, hsl(239 84% 62%) 0%, hsl(262 83% 58%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(217 91% 57%) 0%, hsl(239 84% 62%) 100%);
     --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
