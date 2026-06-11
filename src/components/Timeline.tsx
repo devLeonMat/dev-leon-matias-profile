@@ -146,7 +146,7 @@ const Timeline = () => {
         <div ref={containerRef} className="relative">
           {/* Vertical line */}
           <div
-            className="timeline-line absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-primary/30 to-transparent -translate-x-1/2 origin-top"
+            className="timeline-line absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/70 via-primary/40 to-transparent -translate-x-1/2 origin-top"
           />
 
           <div className="space-y-10">
@@ -222,7 +222,7 @@ const Timeline = () => {
                       ))}
                     </ul>
 
-                    <div className="flex flex-wrap gap-1.5 pt-1 border-t border-border/50">
+                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border">
                       {entry.tech.map((tech) => (
                         <TechBadge key={tech} name={tech} />
                       ))}
@@ -296,20 +296,22 @@ const techLogoMap: Record<string, string> = {
 function TechBadge({ name }: { name: string }) {
   const logo = techLogoMap[name];
   return (
-    <Badge
-      variant="secondary"
-      className="text-xs font-medium bg-muted hover:bg-primary/10 hover:text-primary transition-colors border-0 gap-1.5 mt-1"
+    <span
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold
+        bg-muted text-foreground/80 border border-border
+        hover:bg-primary/10 hover:text-primary hover:border-primary/30
+        transition-colors mt-1 cursor-default"
     >
       {logo && (
         <img
           src={logo}
           alt={name}
-          className="w-3 h-3 object-contain"
+          className="w-3 h-3 object-contain shrink-0"
           onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
         />
       )}
       {name}
-    </Badge>
+    </span>
   );
 }
 
