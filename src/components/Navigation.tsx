@@ -1,6 +1,7 @@
-import { Menu, X, Moon, Sun, Languages } from "lucide-react";
+import { Menu, X, Languages } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
+import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -103,14 +104,10 @@ const Navigation = () => {
             ))}
 
             <div className="ml-2 flex items-center gap-1 border-l border-border pl-3">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className="h-8 w-8 text-muted-foreground hover:text-foreground"
-              >
-                {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </Button>
+              <AnimatedThemeToggler
+                variant="circle"
+                className="h-8 w-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
+              />
               <Button
                 variant="ghost"
                 size="sm"
@@ -125,14 +122,12 @@ const Navigation = () => {
 
           {/* Mobile */}
           <div className="flex md:hidden items-center gap-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="h-8 w-8 text-muted-foreground"
-            >
-              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </Button>
+            <AnimatedThemeToggler
+              theme={theme}
+              onThemeChange={() => toggleTheme()}
+              variant="circle"
+              className="h-8 w-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted"
+            />
             <Button
               variant="ghost"
               size="icon"

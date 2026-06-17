@@ -171,7 +171,7 @@ const translations = {
     "github.view_all": "Ver todos en GitHub",
 
     // Footer
-    "footer.rights": "© 2025 Leon Matias. Todos los derechos reservados.",
+    "footer.rights": "© 2026 Leon Matias. Todos los derechos reservados.",
   },
   en: {
     // Navigation
@@ -331,7 +331,7 @@ const translations = {
     "github.view_all": "View all on GitHub",
 
     // Footer
-    "footer.rights": "© 2025 Leon Matias. All rights reserved.",
+    "footer.rights": "© 2026 Leon Matias. All rights reserved.",
   },
 };
 

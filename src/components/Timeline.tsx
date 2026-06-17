@@ -4,6 +4,7 @@ import { MapPin, ChevronDown } from "lucide-react";
 import { animate, stagger } from "animejs";
 import outcodingLogo from "@/assets/brands/outcoding.svg";
 import dacodes from "@/assets/brands/dacodes.webp";
+import { BorderBeam } from "./ui/border-beam";
 
 interface TimelineEntry {
   period: string;
@@ -54,7 +55,7 @@ const entries: TimelineEntry[] = [
     period: "Jun 2022 – May 2023",
     company: "Globant",
     role: "Senior Full Stack Engineer",
-    location: "Remote · USA 🇺🇸",
+    location: "Remote · Paraguay 🇵🇾",
     initials: "G",
     initialsColor: "#00AC70",
     tech: ["Java", "Angular", "Spring Cloud", "Spring WebFlux", "Feign", "CI/CD"],
@@ -156,9 +157,11 @@ function AccordionItem({ entry, index, defaultOpen }: {
 
   return (
     <div
-      className="border border-border rounded-xl overflow-hidden bg-card transition-shadow hover:shadow-md"
+      className="relative border border-border rounded-xl overflow-hidden bg-card transition-shadow hover:shadow-md"
       style={{ boxShadow: open ? "var(--shadow-elevated)" : "var(--shadow-card)" }}
     >
+      <BorderBeam size={80} duration={10} colorFrom="#f97316" colorTo="#ef4444" borderWidth={1} />
+      <BorderBeam size={80} duration={10} colorFrom="#ef4444" colorTo="#f97316" borderWidth={1} reverse delay={5} />
       {/* Header — always visible, click to toggle */}
       <button
         onClick={() => setOpen((v) => !v)}
