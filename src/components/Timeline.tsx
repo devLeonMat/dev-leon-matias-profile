@@ -160,8 +160,8 @@ function AccordionItem({ entry, index, defaultOpen }: {
       className="relative border border-border rounded-xl overflow-hidden bg-card transition-shadow hover:shadow-md"
       style={{ boxShadow: open ? "var(--shadow-elevated)" : "var(--shadow-card)" }}
     >
-      <BorderBeam size={80} duration={10} colorFrom="#f97316" colorTo="#ef4444" borderWidth={1} />
-      <BorderBeam size={80} duration={10} colorFrom="#ef4444" colorTo="#f97316" borderWidth={1} reverse delay={5} />
+      <BorderBeam size={80} duration={10} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
+      <BorderBeam size={80} duration={10} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={5} />
       {/* Header — always visible, click to toggle */}
       <button
         onClick={() => setOpen((v) => !v)}

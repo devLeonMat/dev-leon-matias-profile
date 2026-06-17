@@ -28,17 +28,18 @@ export function LightWaves({ intensity = 0.6, className = "" }: LightWavesProps)
     resize();
     window.addEventListener("resize", resize);
 
+    // Fire palette: #ff3b30 → #ff6a2c → #f9a826  (brucelabs --cta-*)
     const waveLayers = [
-      { amp: 0.048, freq: 1.6, speed: 0.28, yBase: 0.68, color: [249, 115, 22] as const, alpha: 0.22 },
-      { amp: 0.036, freq: 2.1, speed: 0.18, yBase: 0.78, color: [239, 68, 68] as const, alpha: 0.18 },
-      { amp: 0.028, freq: 2.8, speed: 0.12, yBase: 0.88, color: [249, 115, 22] as const, alpha: 0.14 },
+      { amp: 0.048, freq: 1.6, speed: 0.28, yBase: 0.68, color: [255, 59, 48] as const, alpha: 0.22 },
+      { amp: 0.036, freq: 2.1, speed: 0.18, yBase: 0.78, color: [255, 106, 44] as const, alpha: 0.18 },
+      { amp: 0.028, freq: 2.8, speed: 0.12, yBase: 0.88, color: [249, 168, 38] as const, alpha: 0.14 },
     ];
 
     const blobs = [
-      { x: 0.15, y: 0.20, r: 0.45, vx:  0.018, vy:  0.012, color: [249, 115, 22] as const },
-      { x: 0.75, y: 0.10, r: 0.38, vx: -0.022, vy:  0.015, color: [239, 68, 68] as const },
-      { x: 0.50, y: 0.48, r: 0.34, vx:  0.015, vy: -0.017, color: [251, 146, 60] as const },
-      { x: 0.88, y: 0.38, r: 0.28, vx: -0.013, vy: -0.010, color: [239, 68, 68] as const },
+      { x: 0.15, y: 0.20, r: 0.45, vx:  0.018, vy:  0.012, color: [255, 59, 48] as const },
+      { x: 0.75, y: 0.10, r: 0.38, vx: -0.022, vy:  0.015, color: [255, 106, 44] as const },
+      { x: 0.50, y: 0.48, r: 0.34, vx:  0.015, vy: -0.017, color: [249, 168, 38] as const },
+      { x: 0.88, y: 0.38, r: 0.28, vx: -0.013, vy: -0.010, color: [255, 59, 48] as const },
     ];
 
     let lastTime = performance.now();

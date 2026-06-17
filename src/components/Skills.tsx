@@ -83,8 +83,8 @@ const Skills = () => {
                 <h3 className="text-lg font-semibold">{t(category.titleKey)}</h3>
               </div>
 
-              <BorderBeam size={80} duration={10} colorFrom="#f97316" colorTo="#ef4444" borderWidth={1} />
-              <BorderBeam size={80} duration={10} colorFrom="#ef4444" colorTo="#f97316" borderWidth={1} reverse delay={5} />
+              <BorderBeam size={80} duration={10} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
+              <BorderBeam size={80} duration={10} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={5} />
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => (
                   <span
@@ -106,8 +106,8 @@ const Skills = () => {
 
         {/* Databases & Testing row */}
         <div className="card-elevated relative overflow-hidden p-5 rounded-xl animate-fade-in" style={{ animationDelay: "240ms" }}>
-          <BorderBeam size={100} duration={12} colorFrom="#f97316" colorTo="#ef4444" borderWidth={1} />
-          <BorderBeam size={100} duration={12} colorFrom="#ef4444" colorTo="#f97316" borderWidth={1} reverse delay={6} />
+          <BorderBeam size={100} duration={12} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
+          <BorderBeam size={100} duration={12} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={6} />
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Databases · Testing · DevOps</p>
           <div className="flex flex-wrap gap-2">
             {dbAndTesting.map((skill) => (
