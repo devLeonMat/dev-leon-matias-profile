@@ -1,5 +1,6 @@
 import { Code, Layers, Cloud } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { BorderBeam } from "./ui/border-beam";
 
 const skillCategories = [
   {
@@ -35,6 +36,7 @@ const skillCategories = [
       { name: "Kubernetes", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/kubernetes.svg" },
       { name: "Kafka", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/apachekafka.svg" },
       { name: "Redis", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/redis.svg" },
+      { name: "GCP", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/googlecloud.svg" },
     ],
   },
 ];
@@ -45,6 +47,7 @@ const dbAndTesting = [
   { name: "MongoDB", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mongodb.svg" },
   { name: "SQL Server", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftsqlserver.svg" },
   { name: "CosmosDB", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftazure.svg" },
+  { name: "MySQL", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mysql.svg" },
   { name: "JUnit", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/junit5.svg" },
   { name: "Mockito", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/java.svg" },
   { name: "Jest", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/jest.svg" },
@@ -70,7 +73,7 @@ const Skills = () => {
           {skillCategories.map((category, index) => (
             <div
               key={index}
-              className="card-elevated p-6 rounded-xl animate-fade-in hover-lift"
+              className="card-elevated relative overflow-hidden p-6 rounded-xl animate-fade-in hover-lift"
               style={{ animationDelay: `${index * 80}ms` }}
             >
               <div className="flex items-center gap-3 mb-5">
@@ -80,6 +83,8 @@ const Skills = () => {
                 <h3 className="text-lg font-semibold">{t(category.titleKey)}</h3>
               </div>
 
+              <BorderBeam size={80} duration={10} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
+              <BorderBeam size={80} duration={10} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={5} />
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => (
                   <span
@@ -100,7 +105,9 @@ const Skills = () => {
         </div>
 
         {/* Databases & Testing row */}
-        <div className="card-elevated p-5 rounded-xl animate-fade-in" style={{ animationDelay: "240ms" }}>
+        <div className="card-elevated relative overflow-hidden p-5 rounded-xl animate-fade-in" style={{ animationDelay: "240ms" }}>
+          <BorderBeam size={100} duration={12} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
+          <BorderBeam size={100} duration={12} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={6} />
           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Databases · Testing · DevOps</p>
           <div className="flex flex-wrap gap-2">
             {dbAndTesting.map((skill) => (

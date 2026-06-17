@@ -4,6 +4,7 @@ import { Card } from "./ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAnimeOnScroll } from "@/hooks/use-anime";
 import { animate, stagger } from "animejs";
+import { BorderBeam } from "./ui/border-beam";
 
 const metrics = [
   { value: 12, suffix: "+", label: "Years of Engineering" },
@@ -92,23 +93,13 @@ const About = () => {
 
           {/* Storyset illustration + highlights */}
           <div className="space-y-4">
-            {/* Illustration */}
-            <div className="flex justify-center mb-2">
-              <img
-                src="https://storyset.com/illustration/programming/pana"
-                alt="Developer illustration"
-                className="w-56 h-56 object-contain opacity-90 dark:opacity-70"
-                loading="lazy"
-              />
-            </div>
-
             {/* Highlights with anime.js */}
             <div ref={highlightsRef} className="space-y-3">
               {highlights.map((item, index) => (
                 <Card
                   key={index}
                   data-anime
-                  className="p-4 hover-lift transition-all opacity-0"
+                  className="relative overflow-hidden p-4 hover-lift transition-all opacity-0"
                   style={{ opacity: 0 }}
                 >
                   <div className="flex items-start gap-4">
@@ -120,6 +111,8 @@ const About = () => {
                       <p className="text-sm text-muted-foreground">{item.description}</p>
                     </div>
                   </div>
+                  <BorderBeam size={80} duration={10} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
+                  <BorderBeam size={80} duration={10} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={5} />
                 </Card>
               ))}
             </div>
@@ -134,11 +127,13 @@ const About = () => {
 function MetricCard({ value, suffix, label }: { value: number; suffix: string; label: string }) {
   const { ref } = useMetricCountUp(value);
   return (
-    <div data-anime className="card-elevated p-6 text-center hover-lift rounded-xl">
+    <div data-anime className="card-elevated relative overflow-hidden p-6 text-center hover-lift rounded-xl">
       <p className="text-3xl font-bold text-gradient mb-1">
         <span ref={ref}>0</span>{suffix}
       </p>
       <p className="text-sm text-muted-foreground">{label}</p>
+      <BorderBeam size={60} duration={8} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
+      <BorderBeam size={60} duration={8} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={4} />
     </div>
   );
 }

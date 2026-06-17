@@ -1,4 +1,5 @@
 import { Mail, MapPin, Copy } from "lucide-react";
+import { BorderBeam } from "./ui/border-beam";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -106,10 +107,12 @@ const Contact = () => {
             return (
               <div
                 key={index}
-                className="card-elevated rounded-xl p-5 hover-lift transition-all"
+                className="card-elevated relative overflow-hidden rounded-xl p-5 hover-lift transition-all"
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
+                <BorderBeam size={80} duration={10} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
+                <BorderBeam size={80} duration={10} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={5} />
                 {item.link ? (
                   <a href={item.link} target="_blank" rel="noopener noreferrer" className="block">
                     {content}
