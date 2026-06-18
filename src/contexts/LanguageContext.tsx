@@ -82,11 +82,13 @@ const translations = {
     "hero.email.copied": "Email copiado al portapapeles",
 
     // Timeline
+    "timeline.badge": "Trayectoria profesional",
     "timeline.title": "Trayectoria",
     "timeline.title.highlight": "Profesional",
     "timeline.subtitle": "12+ años de experiencia en empresas de USA y Latinoamérica",
 
     // About
+    "about.badge": "Sobre Leon",
     "about.title": "Sobre",
     "about.title.highlight": "Mí",
     "about.subtitle": "Lead Software Engineer especializado en sistemas cloud-native y arquitectura de microservicios",
@@ -104,6 +106,7 @@ const translations = {
     "about.highlight3.desc": "50+ microservicios, sistemas event-driven con Kafka, plataformas bancarias y de salud",
 
     // Skills
+    "skills.badge": "Lo que domino",
     "skills.title": "Tech",
     "skills.title.highlight": "Stack",
     "skills.subtitle": "Tecnologías y herramientas que domino",
@@ -132,11 +135,13 @@ const translations = {
     "companies.bridge.task4": "Desplegué y gestioné servicios en Azure Kubernetes Service (AKS) con Helm charts, Zipkin y stack ELK para observabilidad.",
 
     // CTA Banner
+    "cta.badge": "Listo para tu próximo proyecto",
     "cta.heading": "¿Buscas un Lead Engineer?",
     "cta.subtext": "Disponible para roles remotos en empresas de Estados Unidos y Latinoamérica. Construyamos algo juntos.",
     "cta.btn.contact": "Hablemos",
 
     // Contact
+    "contact.badge": "Hablemos",
     "contact.title": "Hablemos del",
     "contact.title.highlight": "Proyecto",
     "contact.subtitle": "¿Tienes una idea? Me encantaría escucharla",
@@ -160,6 +165,7 @@ const translations = {
     "contact.form.success": "¡Mensaje enviado! Te responderé pronto.",
 
     // GitHub
+    "github.badge": "Código abierto",
     "github.title": "Proyectos en",
     "github.title.highlight": "GitHub",
     "github.subtitle": "Repositorios destacados y lenguajes más utilizados",
@@ -242,11 +248,13 @@ const translations = {
     "hero.email.copied": "Email copied to clipboard",
 
     // Timeline
+    "timeline.badge": "Career journey",
     "timeline.title": "Career",
     "timeline.title.highlight": "Timeline",
     "timeline.subtitle": "12+ years of experience across US and Latin America companies",
 
     // About
+    "about.badge": "About Leon",
     "about.title": "About",
     "about.title.highlight": "Me",
     "about.subtitle": "Lead Software Engineer specialized in cloud-native systems and microservices architecture",
@@ -264,6 +272,7 @@ const translations = {
     "about.highlight3.desc": "50+ microservices, event-driven systems with Kafka, banking and healthcare platforms",
 
     // Skills
+    "skills.badge": "What I work with",
     "skills.title": "Tech",
     "skills.title.highlight": "Stack",
     "skills.subtitle": "Technologies and tools I master",
@@ -292,11 +301,13 @@ const translations = {
     "companies.bridge.task4": "Deployed and managed services on Azure Kubernetes Service (AKS) with Helm, Zipkin tracing, and ELK stack for observability.",
 
     // CTA Banner
+    "cta.badge": "Ready for your next project",
     "cta.heading": "Looking for a Lead Engineer?",
     "cta.subtext": "Available for remote roles at US and Latin America companies. Let's build something great together.",
     "cta.btn.contact": "Let's Talk",
 
     // Contact
+    "contact.badge": "Let's talk",
     "contact.title": "Let's Talk About",
     "contact.title.highlight": "Your Project",
     "contact.subtitle": "Have an idea? I'd love to hear it",
@@ -320,6 +331,7 @@ const translations = {
     "contact.form.success": "Message sent! I'll get back to you soon.",
 
     // GitHub
+    "github.badge": "Open source",
     "github.title": "Projects on",
     "github.title.highlight": "GitHub",
     "github.subtitle": "Featured repositories and most used languages",

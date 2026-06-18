@@ -1,9 +1,10 @@
 import { Mail, MapPin, Copy } from "lucide-react";
-import { BorderBeam } from "./ui/border-beam";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
+import { SectionBadge } from "./ui/SectionBadge";
+import { accentColorAt, accentColorAlphaAt, accentTopBorderStyle } from "@/lib/accentColors";
 import {
   Tooltip,
   TooltipContent,
@@ -51,9 +52,12 @@ const Contact = () => {
     <section id="contact" className="py-24 px-4 section-alt">
       <div className="container mx-auto max-w-3xl">
         <div className="text-center mb-16 animate-fade-in">
+          <div className="flex justify-center mb-4">
+            <SectionBadge>{t("contact.badge")}</SectionBadge>
+          </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             {t("contact.title")}{" "}
-            <span className="text-gradient">{t("contact.title.highlight")}</span>
+            <span className="text-gradient-secondary">{t("contact.title.highlight")}</span>
           </h2>
           <p className="text-muted-foreground text-lg">{t("contact.subtitle")}</p>
         </div>
@@ -64,11 +68,11 @@ const Contact = () => {
             const content = (
               <div className="flex items-center gap-4 justify-between">
                 <div className="flex items-center gap-4 flex-1">
-                  <div className="p-3 rounded-xl bg-primary/10 shrink-0">
+                  <div className="p-3 rounded-xl shrink-0" style={{ background: accentColorAlphaAt(index, 0.12) }}>
                     {item.isWhatsApp ? (
                       <img src={whatsappIcon} alt="WhatsApp" className="h-5 w-5" />
                     ) : (
-                      <item.icon className="h-5 w-5 text-primary" />
+                      <item.icon className="h-5 w-5" style={{ color: accentColorAt(index) }} />
                     )}
                   </div>
                   <div>
@@ -107,12 +111,11 @@ const Contact = () => {
             return (
               <div
                 key={index}
-                className="card-elevated relative overflow-hidden rounded-xl p-5 hover-lift transition-all"
+                className="card-elevated card-accent-top relative overflow-hidden rounded-xl p-5 hover-lift transition-all"
+                style={accentTopBorderStyle(index)}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                <BorderBeam size={80} duration={10} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
-                <BorderBeam size={80} duration={10} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={5} />
                 {item.link ? (
                   <a href={item.link} target="_blank" rel="noopener noreferrer" className="block">
                     {content}

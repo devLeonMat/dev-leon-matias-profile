@@ -4,6 +4,8 @@ import { Badge } from "./ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Star, GitFork, ExternalLink, Code2 } from "lucide-react";
 import { Button } from "./ui/button";
+import { SectionBadge } from "./ui/SectionBadge";
+import { accentColorAt, accentColorAlphaAt, accentTopBorderStyle } from "@/lib/accentColors";
 
 interface Repository {
   id: number;
@@ -105,8 +107,11 @@ const GitHub = () => {
     <section id="github" className="py-20 px-4 bg-muted/30">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16 animate-fade-in">
+          <div className="flex justify-center mb-4">
+            <SectionBadge>{t("github.badge")}</SectionBadge>
+          </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            {t("github.title")} <span className="text-gradient">{t("github.title.highlight")}</span>
+            {t("github.title")} <span className="text-gradient-secondary">{t("github.title.highlight")}</span>
           </h2>
           <p className="text-muted-foreground text-lg">
             {t("github.subtitle")}
@@ -122,19 +127,20 @@ const GitHub = () => {
             {t("github.languages.subtitle")}
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {sortedLanguages.map(([language, count]) => (
+            {sortedLanguages.map(([language, count], index) => (
               <Card
                 key={language}
-                className="p-4 bg-card/50 backdrop-blur-sm border-glow hover:bg-card/70 transition-all hover-scale"
+                className="card-accent-top p-4 bg-card/50 backdrop-blur-sm hover:bg-card/70 transition-all hover-scale"
+                style={accentTopBorderStyle(index)}
               >
                 <div className="flex flex-col items-center gap-2">
                   <div
                     className="w-12 h-12 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: `${getLanguageColor(language)}20` }}
+                    style={{ background: accentColorAlphaAt(index, 0.12) }}
                   >
-                    <Code2 
-                      className="h-6 w-6" 
-                      style={{ color: getLanguageColor(language) }}
+                    <Code2
+                      className="h-6 w-6"
+                      style={{ color: accentColorAt(index) }}
                     />
                   </div>
                   <p className="font-semibold text-sm text-center">{language}</p>
@@ -143,7 +149,7 @@ const GitHub = () => {
                       className="h-2 rounded-full transition-all duration-500"
                       style={{
                         width: `${(count / maxCount) * 100}%`,
-                        backgroundColor: getLanguageColor(language),
+                        backgroundColor: accentColorAt(index),
                       }}
                     />
                   </div>
@@ -165,8 +171,8 @@ const GitHub = () => {
             {repos.slice(0, 6).map((repo, index) => (
               <Card
                 key={repo.id}
-                className="p-6 bg-card/50 backdrop-blur-sm border-glow hover:bg-card/70 transition-all hover:-translate-y-1 animate-fade-in hover-scale"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="card-accent-top p-6 bg-card/50 backdrop-blur-sm hover:bg-card/70 transition-all hover:-translate-y-1 animate-fade-in hover-scale"
+                style={{ animationDelay: `${index * 100}ms`, ...accentTopBorderStyle(index) }}
               >
                 <div className="flex flex-col h-full">
                   <div className="flex items-start justify-between mb-3">

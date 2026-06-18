@@ -4,7 +4,8 @@ import { MapPin, ChevronDown } from "lucide-react";
 import { animate, stagger } from "animejs";
 import outcodingLogo from "@/assets/brands/outcoding.svg";
 import dacodes from "@/assets/brands/dacodes.webp";
-import { BorderBeam } from "./ui/border-beam";
+import { SectionBadge } from "./ui/SectionBadge";
+import { accentTopBorderStyle } from "@/lib/accentColors";
 
 interface TimelineEntry {
   period: string;
@@ -157,11 +158,9 @@ function AccordionItem({ entry, index, defaultOpen }: {
 
   return (
     <div
-      className="relative border border-border rounded-xl overflow-hidden bg-card transition-shadow hover:shadow-md"
-      style={{ boxShadow: open ? "var(--shadow-elevated)" : "var(--shadow-card)" }}
+      className="card-accent-top relative border border-border rounded-xl overflow-hidden bg-card transition-shadow hover:shadow-md"
+      style={{ boxShadow: open ? "var(--shadow-elevated)" : "var(--shadow-card)", ...accentTopBorderStyle(index) }}
     >
-      <BorderBeam size={80} duration={10} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
-      <BorderBeam size={80} duration={10} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={5} />
       {/* Header — always visible, click to toggle */}
       <button
         onClick={() => setOpen((v) => !v)}
@@ -264,9 +263,12 @@ const Timeline = () => {
     <section id="timeline" className="py-24 px-4">
       <div className="container mx-auto max-w-3xl">
         <div className="text-center mb-14">
+          <div className="flex justify-center mb-4">
+            <SectionBadge>{t("timeline.badge")}</SectionBadge>
+          </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             {t("timeline.title")}{" "}
-            <span className="text-gradient">{t("timeline.title.highlight")}</span>
+            <span className="text-gradient-secondary">{t("timeline.title.highlight")}</span>
           </h2>
           <p className="text-muted-foreground text-lg">{t("timeline.subtitle")}</p>
         </div>
