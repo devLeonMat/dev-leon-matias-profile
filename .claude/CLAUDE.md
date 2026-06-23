@@ -66,7 +66,7 @@ src/
 **Empresas (timeline):**
 1. **Dacodes** — Lead Software Engineer · Jan 2025–Present · Remote USA
 2. **Outcoding** — Senior Full Stack Engineer · Mar 2023–Dec 2024 · Remote USA
-3. **Globant** — Senior Full Stack Engineer · Jun 2022–May 2023 · Remote USA
+3. **Globant** — Senior Full Stack Engineer · Jun 2022–May 2023 · Remote Paraguay
 4. **The Bridge Social** — Full Stack Engineer · Jan 2021–Jan 2022 · Remote USA
 5. Earlier: INDRA (BCP, RIMAC), Michael Page (Intercorp), Zoluxiones (SURA), Experis (Equifax), Olva, LimaW
 
