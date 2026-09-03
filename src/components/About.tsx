@@ -111,8 +111,8 @@ const About = () => {
                       <p className="text-sm text-muted-foreground">{item.description}</p>
                     </div>
                   </div>
-                  <BorderBeam size={80} duration={10} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
-                  <BorderBeam size={80} duration={10} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={5} />
+                  <BorderBeam size={80} duration={10} colorFrom="#0369a1" colorTo="#f59e0b" borderWidth={1} />
+                  <BorderBeam size={80} duration={10} colorFrom="#f59e0b" colorTo="#0369a1" borderWidth={1} reverse delay={5} />
                 </Card>
               ))}
             </div>
@@ -132,8 +132,8 @@ function MetricCard({ value, suffix, label }: { value: number; suffix: string; l
         <span ref={ref}>0</span>{suffix}
       </p>
       <p className="text-sm text-muted-foreground">{label}</p>
-      <BorderBeam size={60} duration={8} colorFrom="#ff3b30" colorTo="#f9a826" borderWidth={1} />
-      <BorderBeam size={60} duration={8} colorFrom="#f9a826" colorTo="#ff3b30" borderWidth={1} reverse delay={4} />
+      <BorderBeam size={60} duration={8} colorFrom="#0369a1" colorTo="#f59e0b" borderWidth={1} />
+      <BorderBeam size={60} duration={8} colorFrom="#f59e0b" colorTo="#0369a1" borderWidth={1} reverse delay={4} />
     </div>
   );
 }
