@@ -7,6 +7,7 @@ const LinkedinIcon = ({ className }: { className?: string }) => (
 );
 import { Button } from "./ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { RESUME_URLS } from "@/lib/resume";
 import { useTheme } from "@/contexts/ThemeContext";
 import { toast } from "sonner";
 import { useEffect, useRef } from "react";
@@ -20,7 +21,6 @@ const {
   VITE_EMAIL,
   VITE_LINKEDIN_URL,
   VITE_GITHUB_URL,
-  VITE_RESUME_URL,
 } = import.meta.env;
 
 const whatsappUrl = `https://wa.me/${VITE_WHATSAPP_NUMBER}?text=Hi%20Leon,%20I'd%20like%20to%20connect`;
@@ -40,7 +40,7 @@ const floatingBadges = [
 ];
 
 const Hero = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { theme } = useTheme();
   const typedRef = useRef<HTMLSpanElement>(null);
 
@@ -158,7 +158,7 @@ const Hero = () => {
                 <ArrowDown className="ml-2 h-4 w-4" />
               </Button>
               <Button size="lg" variant="ghost" asChild className="font-semibold text-muted-foreground hover:text-foreground">
-                <a href={VITE_RESUME_URL} target="_blank" rel="noopener noreferrer">
+                <a href={RESUME_URLS[language]} target="_blank" rel="noopener noreferrer">
                   {t("hero.cta.resume")}
                   <FileDown className="ml-2 h-4 w-4" />
                 </a>
