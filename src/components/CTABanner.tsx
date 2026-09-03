@@ -31,11 +31,11 @@ const CTABanner = () => {
           {/* Glow blobs inside banner */}
           <div
             className="absolute -top-12 -right-12 w-48 h-48 rounded-full blur-3xl opacity-30 pointer-events-none"
-            style={{ background: "hsl(262 83% 75%)" }}
+            style={{ background: "hsl(199 89% 72%)" }}
           />
           <div
             className="absolute -bottom-12 -left-12 w-40 h-40 rounded-full blur-3xl opacity-25 pointer-events-none"
-            style={{ background: "hsl(217 91% 75%)" }}
+            style={{ background: "hsl(38 92% 65%)" }}
           />
 
           <div className="relative z-10 space-y-5">
@@ -57,7 +57,7 @@ const CTABanner = () => {
                 size="lg"
                 onClick={scrollToContact}
                 className="bg-white font-semibold hover:bg-white/90 transition-colors"
-                style={{ color: "hsl(239 84% 67%)" }}
+                style={{ color: "hsl(201 96% 32%)" }}
               >
                 {t("cta.btn.contact")}
                 <Mail className="ml-2 h-4 w-4" />
