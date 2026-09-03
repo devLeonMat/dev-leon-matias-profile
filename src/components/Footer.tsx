@@ -13,24 +13,17 @@ const LinkedinIcon = ({ className }: { className?: string }) => (
 import { Button } from "./ui/button";
 import { APP_VERSION } from "@/lib/appVersion";
 
-const { VITE_EMAIL, VITE_LINKEDIN_URL, VITE_GITHUB_URL, VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY } = import.meta.env;
+const { VITE_EMAIL, VITE_LINKEDIN_URL, VITE_GITHUB_URL } = import.meta.env;
+
+const COUNTER_URL = "https://api.countapi.xyz/hit/devleonmat.github.io/visits";
 
 const Footer = () => {
   const [visitCount, setVisitCount] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!VITE_SUPABASE_URL || !VITE_SUPABASE_ANON_KEY) return;
-
-    fetch(`${VITE_SUPABASE_URL}/rest/v1/rpc/increment_page_views`, {
-      method: "POST",
-      headers: {
-        apikey: VITE_SUPABASE_ANON_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    })
+    fetch(COUNTER_URL)
       .then((res) => res.json())
-      .then((count) => typeof count === "number" && setVisitCount(count))
+      .then((data) => typeof data.value === "number" && setVisitCount(data.value))
       .catch(() => {});
   }, []);
 
