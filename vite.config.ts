@@ -21,4 +21,12 @@ export default defineConfig(({ mode }) => ({
   optimizeDeps: {
     include: ["motion/react"],
   },
+  define: {
+    // In CI: VITE_APP_VERSION is set via env (e.g. "1.0.42" using github.run_number).
+    // Locally: falls back to today's date so the footer always shows something meaningful.
+    "import.meta.env.VITE_APP_VERSION": JSON.stringify(
+      process.env.VITE_APP_VERSION ??
+        new Date().toISOString().slice(0, 10).replace(/-/g, ".")
+    ),
+  },
 }));
