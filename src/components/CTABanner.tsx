@@ -1,11 +1,10 @@
 import { Mail, FileDown, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-const { VITE_RESUME_URL } = import.meta.env;
+import { RESUME_URLS } from "@/lib/resume";
 
 const CTABanner = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
@@ -68,7 +67,7 @@ const CTABanner = () => {
                 asChild
                 className="border-white text-white bg-white/10 hover:bg-white/20 hover:border-white font-semibold backdrop-blur-sm"
               >
-                <a href={VITE_RESUME_URL} target="_blank" rel="noopener noreferrer">
+                <a href={RESUME_URLS[language]} target="_blank" rel="noopener noreferrer">
                   {t("hero.cta.resume")}
                   <FileDown className="ml-2 h-4 w-4" />
                 </a>
