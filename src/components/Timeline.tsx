@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MapPin, ChevronDown } from "lucide-react";
 import { animate, stagger } from "animejs";
-import outcodingLogo from "@/assets/brands/outcoding.svg";
 import dacodes from "@/assets/brands/dacodes.webp";
 import { BorderBeam } from "./ui/border-beam";
 
@@ -21,12 +20,29 @@ interface TimelineEntry {
 
 const entries: TimelineEntry[] = [
   {
-    period: "Jan 2025 – Present",
-    company: "Dacodes",
+    period: "Mar 2026 – Present",
+    company: "IDM Technology",
+    role: "Senior Full Stack Developer",
+    location: "Lima, Peru 🇵🇪",
+    initials: "IDM",
+    initialsColor: "#1d4ed8",
+    tech: ["Java 25", "Spring Boot 4", "Spring WebFlux", "GCP", "SQL Server", "React", "Jenkins"],
+    tasksKeys: [
+      "companies.idm.task1",
+      "companies.idm.task2",
+      "companies.idm.task3",
+      "companies.idm.task4",
+      "companies.idm.task5",
+    ],
+    current: true,
+  },
+  {
+    period: "Jan 2025 – Feb 2026",
+    company: "DaCodes",
     role: "Lead Software Engineer",
     location: "Remote · USA 🇺🇸",
     logo: dacodes,
-    tech: ["React 18", "Scala", "Oracle 19c", "AWS Lambda", "S3", "RDS", "CloudWatch"],
+    tech: ["React 18", "React Native", "Java", "Scala", "Spring Boot", "Apache Kafka", "AWS Lambda", "EKS", "Oracle 19c"],
     tasksKeys: [
       "companies.dacodes.task1",
       "companies.dacodes.task2",
@@ -34,15 +50,15 @@ const entries: TimelineEntry[] = [
       "companies.dacodes.task4",
       "companies.dacodes.task5",
     ],
-    current: true,
   },
   {
     period: "Mar 2023 – Dec 2024",
-    company: "Outcoding",
+    company: "ExSquared",
     role: "Senior Full Stack Engineer",
     location: "Remote · USA 🇺🇸",
-    logo: outcodingLogo,
-    tech: ["Angular", "Java 17", "Hexagonal Arch", "Kubernetes", "Azure AD", "PostgreSQL", "OAuth 2.0"],
+    initials: "ES",
+    initialsColor: "#0d9488",
+    tech: ["Angular 15", "Java 17", "Spring Boot", "Spring Cloud Stream", "PostgreSQL", "AWS EKS", "TypeScript", "Jest"],
     tasksKeys: [
       "companies.outcoding.task1",
       "companies.outcoding.task2",
@@ -52,13 +68,13 @@ const entries: TimelineEntry[] = [
     ],
   },
   {
-    period: "Jun 2022 – May 2023",
+    period: "Jun 2022 – Feb 2023",
     company: "Globant",
     role: "Senior Full Stack Engineer",
     location: "Remote · Paraguay 🇵🇾",
     initials: "G",
     initialsColor: "#00AC70",
-    tech: ["Java", "Angular", "Spring Cloud", "Spring WebFlux", "Feign", "CI/CD"],
+    tech: ["Java 11", "Spring Boot", "Angular 12", "React Native", "SQL Server", "AWS EKS", "Feign"],
     tasksKeys: [
       "companies.globant.task1",
       "companies.globant.task2",
@@ -67,13 +83,13 @@ const entries: TimelineEntry[] = [
     ],
   },
   {
-    period: "Jan 2021 – Jan 2022",
+    period: "Jan 2021 – May 2022",
     company: "The Bridge Social",
     role: "Full Stack Engineer",
-    location: "Remote · USA 🇺🇸",
+    location: "Remote · Jamaica 🇯🇲",
     initials: "TB",
     initialsColor: "#6366F1",
-    tech: ["Java 11", "Spring Boot", "Kafka", "React", "Redux", "Azure", "AKS", "ELK"],
+    tech: ["Java 11", "Spring Boot", "Apache Kafka", "React", "React Native", "NestJS", "Azure AKS", "PostgreSQL"],
     tasksKeys: [
       "companies.bridge.task1",
       "companies.bridge.task2",
@@ -86,6 +102,7 @@ const entries: TimelineEntry[] = [
 const techLogoMap: Record<string, string> = {
   "React 18": "https://svglogos.dev/logos/react.svg",
   "React": "https://svglogos.dev/logos/react.svg",
+  "React Native": "https://svglogos.dev/logos/react.svg",
   "Scala": "https://svglogos.dev/logos/scala.svg",
   "AWS Lambda": "https://svglogos.dev/logos/aws-lambda.svg",
   "S3": "https://svglogos.dev/logos/aws-s3.svg",
@@ -93,20 +110,36 @@ const techLogoMap: Record<string, string> = {
   "CloudWatch": "https://svglogos.dev/logos/aws-cloudwatch.svg",
   "AWS": "https://svglogos.dev/logos/aws.svg",
   "Angular": "https://svglogos.dev/logos/angular-icon.svg",
+  "Angular 15": "https://svglogos.dev/logos/angular-icon.svg",
+  "Angular 12": "https://svglogos.dev/logos/angular-icon.svg",
+  "Java 25": "https://svglogos.dev/logos/java.svg",
   "Java 17": "https://svglogos.dev/logos/java.svg",
   "Java 11": "https://svglogos.dev/logos/java.svg",
   "Java": "https://svglogos.dev/logos/java.svg",
-  "Kubernetes": "https://svglogos.dev/logos/kubernetes.svg",
-  "Azure": "https://svglogos.dev/logos/microsoft-azure.svg",
-  "Azure AD": "https://svglogos.dev/logos/microsoft-azure.svg",
-  "PostgreSQL": "https://svglogos.dev/logos/postgresql.svg",
-  "Spring Cloud": "https://svglogos.dev/logos/spring.svg",
   "Spring Boot": "https://svglogos.dev/logos/spring-icon.svg",
+  "Spring Boot 4": "https://svglogos.dev/logos/spring-icon.svg",
   "Spring WebFlux": "https://svglogos.dev/logos/spring.svg",
-  "Kafka": "https://svglogos.dev/logos/kafka.svg",
-  "Redux": "https://svglogos.dev/logos/redux.svg",
-  "Docker": "https://svglogos.dev/logos/docker-icon.svg",
+  "Spring Cloud": "https://svglogos.dev/logos/spring.svg",
+  "Spring Cloud Stream": "https://svglogos.dev/logos/spring.svg",
+  "Feign": "https://svglogos.dev/logos/spring.svg",
+  "Kubernetes": "https://svglogos.dev/logos/kubernetes.svg",
+  "EKS": "https://svglogos.dev/logos/kubernetes.svg",
+  "AWS EKS": "https://svglogos.dev/logos/kubernetes.svg",
+  "Azure": "https://svglogos.dev/logos/microsoft-azure.svg",
+  "Azure AKS": "https://svglogos.dev/logos/microsoft-azure.svg",
   "AKS": "https://svglogos.dev/logos/microsoft-azure.svg",
+  "PostgreSQL": "https://svglogos.dev/logos/postgresql.svg",
+  "SQL Server": "https://svglogos.dev/logos/microsoft-sql-server.svg",
+  "Oracle 19c": "https://svglogos.dev/logos/oracle.svg",
+  "Kafka": "https://svglogos.dev/logos/kafka.svg",
+  "Apache Kafka": "https://svglogos.dev/logos/kafka.svg",
+  "NestJS": "https://svglogos.dev/logos/nestjs.svg",
+  "TypeScript": "https://svglogos.dev/logos/typescript-icon.svg",
+  "Jest": "https://svglogos.dev/logos/jest.svg",
+  "GCP": "https://svglogos.dev/logos/google-cloud.svg",
+  "Jenkins": "https://svglogos.dev/logos/jenkins.svg",
+  "Docker": "https://svglogos.dev/logos/docker-icon.svg",
+  "Redux": "https://svglogos.dev/logos/redux.svg",
   "ELK": "https://svglogos.dev/logos/elastic.svg",
 };
 
@@ -280,7 +313,7 @@ const Timeline = () => {
 
           {/* Earlier */}
           <p className="text-xs text-muted-foreground/70 italic text-center pt-2 leading-relaxed">
-            Earlier: INDRA (BCP, RIMAC Seguros) · Michael Page (Intercorp Retail) · Zoluxiones (SURA Perú) · Experis (Equifax) · Olva Courier · LimaW
+            Earlier: Kruger Corp (BCP) · Michael Page (Intercorp Retail) · Zoluxiones (SURA Perú) · Experis (Equifax) · Olva Courier · LimaW
             <br />
             <span className="text-muted-foreground/50">Banking · Insurance · Retail · Logistics · Financial Services</span>
           </p>

@@ -8,7 +8,7 @@ import { BorderBeam } from "./ui/border-beam";
 
 const metrics = [
   { value: 12, suffix: "+", label: "Years of Engineering" },
-  { value: 4, suffix: "", label: "US Companies" },
+  { value: 5, suffix: "", label: "Companies" },
   { value: 5, suffix: "+", label: "Industries Served" },
   { value: 50, suffix: "+", label: "Microservices Built" },
 ];

@@ -27,7 +27,7 @@ const whatsappUrl = `https://wa.me/${VITE_WHATSAPP_NUMBER}?text=Hi%20Leon,%20I'd
 
 const stats = [
   { value: "12+", label: "Years Experience" },
-  { value: "4", label: "US Companies" },
+  { value: "5", label: "Companies" },
   { value: "UTC-5", label: "Americas Timezone" },
 ];
 
