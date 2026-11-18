@@ -42,7 +42,7 @@ const entries: TimelineEntry[] = [
     role: "Lead Software Engineer",
     location: "Remote · USA 🇺🇸",
     logo: dacodes,
-    tech: ["React 18", "React Native", "Java", "Scala", "Spring Boot", "Apache Kafka", "AWS Lambda", "EKS", "Oracle 19c"],
+    tech: ["React 18", "Java", "Spring Boot", "Apache Kafka", "AWS Lambda", "EKS", "Docker", "Kubernetes"],
     tasksKeys: [
       "companies.dacodes.task1",
       "companies.dacodes.task2",
@@ -58,7 +58,7 @@ const entries: TimelineEntry[] = [
     location: "Remote · USA 🇺🇸",
     initials: "ES",
     initialsColor: "#0d9488",
-    tech: ["Angular 15", "Java 17", "Spring Boot", "Spring Cloud Stream", "PostgreSQL", "AWS EKS", "TypeScript", "Jest"],
+    tech: ["Angular", "NestJS", "Node.js", "Apache Kafka", "Redis", "PostgreSQL", "TypeScript", "Jest"],
     tasksKeys: [
       "companies.outcoding.task1",
       "companies.outcoding.task2",
@@ -74,7 +74,7 @@ const entries: TimelineEntry[] = [
     location: "Remote · Paraguay 🇵🇾",
     initials: "G",
     initialsColor: "#00AC70",
-    tech: ["Java 11", "Spring Boot", "Angular 12", "React Native", "SQL Server", "AWS EKS", "Feign"],
+    tech: ["Java 11", "Spring Boot", "Angular 12", "SQL Server", "REST APIs"],
     tasksKeys: [
       "companies.globant.task1",
       "companies.globant.task2",
@@ -112,6 +112,8 @@ const techLogoMap: Record<string, string> = {
   "Angular": "https://svglogos.dev/logos/angular-icon.svg",
   "Angular 15": "https://svglogos.dev/logos/angular-icon.svg",
   "Angular 12": "https://svglogos.dev/logos/angular-icon.svg",
+  "Node.js": "https://svglogos.dev/logos/nodejs-icon.svg",
+  "Redis": "https://svglogos.dev/logos/redis.svg",
   "Java 25": "https://svglogos.dev/logos/java.svg",
   "Java 17": "https://svglogos.dev/logos/java.svg",
   "Java 11": "https://svglogos.dev/logos/java.svg",
