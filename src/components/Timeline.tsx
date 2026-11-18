@@ -22,7 +22,7 @@ const entries: TimelineEntry[] = [
   {
     period: "Mar 2026 – Present",
     company: "IDM Technology",
-    role: "Senior Full Stack Developer",
+    role: "Tech Lead",
     location: "Lima, Peru 🇵🇪",
     initials: "IDM",
     initialsColor: "#1d4ed8",
